@@ -2,7 +2,7 @@
  
 ## ステータス
  
-<!-- proposed / accepted / deprecated / superseded のいずれか -->
+<!-- proposed(提案中) / accepted(採用) / deprecated(非推奨) / superseded(置き換え済み) のいずれか -->
 <!-- 判断が変わった場合は superseded にして新しいADRを起こす -->
  
 proposed
