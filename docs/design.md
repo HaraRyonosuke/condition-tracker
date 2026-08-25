@@ -28,7 +28,7 @@ graph LR
 erDiagram
     DAILY_RECORD {
         string id PK "YYYY-MM-DD"
-        int total_score "0-21"
+        int total_score "0-21 高いほど当てはまりが強い"
         datetime recorded_at
         string memo "自由記述（任意）"
     }
@@ -55,7 +55,7 @@ erDiagram
 ```typescript
 interface DailyRecord {
   id: string;             // "YYYY-MM-DD"
-  totalScore: number;     // 0-21
+  totalScore: number;     // 0-21 高いほど質問への当てはまりが強い
   items: CheckItem[];
   behavior?: BehaviorLog;
   memo?: string;
@@ -64,7 +64,7 @@ interface DailyRecord {
 
 interface CheckItem {
   key: string;
-  score: number;          // 0-3
+  score: number;          // 0-3（0=なし、3=とても）
 }
 
 interface BehaviorLog {
@@ -73,6 +73,69 @@ interface BehaviorLog {
   outdoor: boolean;
 }
 ```
+
+### 項目定義と行動記録の持ち方
+
+チェック項目の表示名と質問文は、記録の1件ごとには持たない。
+定義はアプリ全体で1か所に置き、各記録の `items` は `{ key, score }` だけにする。
+`key` は定義表の `id` と一致させる。
+
+点数は質問文への当てはまりである。0はなし、3はとても当てはまる。
+合計（0〜21）が高いほど、自覚している負担が強い。
+このチェックリストは自己モニタリング用であり、診断や医療的判定を目的としない。
+
+```typescript
+const checkItemDefinitions = [
+  { id: "q1", label: "気分・憂うつ", text: "気分が落ち込む・憂うつに感じた" },
+  { id: "q2", label: "興味・喜びの減退", text: "物事への興味や喜びが感じられなかった" },
+  { id: "q3", label: "疲労・気力", text: "疲れやすい・気力がなかった" },
+  { id: "q4", label: "睡眠", text: "睡眠に問題があった(入眠困難・中途覚醒・過眠など)" },
+  { id: "q5", label: "食欲の変化", text: "食欲の変化があった(低下または増加)" },
+  { id: "q6", label: "自己否定", text: "自分を責める気持ち・無価値感があった" },
+  { id: "q7", label: "集中力", text: "集中することが難しかった" },
+];
+```
+
+実装時はこの定義をソース上の定数として置く。英語名は今は持たない。必要になったら定義表に足す。
+
+入力の4択ラベルは現行ツールに合わせる。数字と日本語を併記する。絵文字は使わない。
+
+```typescript
+const scaleLabels = [
+  { value: 0, label: "なし" },
+  { value: 1, label: "少し" },
+  { value: 2, label: "かなり" },
+  { value: 3, label: "とても" },
+];
+```
+
+画面では `text` を質問文として出し、`label` は一覧など短い表示用にする。
+未回答は 0 点と区別する（`null`）。7問すべて答えてから保存できる。
+合計は全問回答後にだけ見せる。未回答を 0 として足さない。
+
+US-01 の入力UI（現行ツールから採用するもの）:
+
+- 各項目は 4 列の大きいボタン。上に数値、下にラベル
+- ダークモードは OS の `prefers-color-scheme` に合わせる（専用テーマ選定はスタイルADR）
+- クリップボードへコピーして外部スレッドへ貼る流れは採用しない。アプリ内に保存する
+
+現行ツールにあって、このスプリントでは持たないもの:
+
+- 入浴・外出の bool と、朝昼晩・間食の時刻（US-03。型は当面 bool と食事回数のまま。現行は食事が時刻なので、US-03 着手時に寄せ方を決める）
+- 活動の開始・終了・内容の行追加（時間幅の将来タスク）
+- 「今日のこと」「相談・共有」の 2 メモ（US-05。相談欄は現行にあり、汎用 `memo` と分けるかは当時決める）
+- 合計の帯ラベル（低 / 軽度 / 中等度 / 要注意）。診断に読まれやすいので US-01 では点数のみ
+- タイムライン、空き時間、時刻ピッカーの作り込み
+
+`behavior` は、このスプリント（US-03 まで含む当面）では真偽と回数のままにする。
+
+`behavior` は、このスプリント（US-03 まで含む当面）では真偽と回数のままにする。
+
+- `bathing` / `outdoor`: bool
+- `meals`: 回数（整数）
+
+開始・終了の時間幅で持つ形や、「設定で bool と時間入力を切り替える」汎用化は将来タスクとする。
+一周目の範囲を広げない。US-01 では `behavior` も `memo` も入力・保存しない。
 
 ## 3. コンポーネント構成
 
