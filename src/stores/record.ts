@@ -7,6 +7,8 @@ import { formatCopyText } from '@/utils/formatCopyText'
 export const useRecordStore = defineStore('record', () => {
   const scores = ref(emptyScores())
   const copyState = ref<'idle' | 'copied' | 'error'>('idle')
+  /** Bumps when a score changes so the preview datetime refreshes. */
+  const previewClock = ref(0)
 
   const isComplete = computed(() =>
     checkItemDefinitions.every((item) => scores.value[item.id] !== null),
@@ -17,27 +19,27 @@ export const useRecordStore = defineStore('record', () => {
     return checkItemDefinitions.reduce((sum, item) => sum + (scores.value[item.id] ?? 0), 0)
   })
 
+  const previewText = computed(() => {
+    void previewClock.value
+    return formatCopyText({
+      recordedAt: new Date(),
+      timeZone: getBrowserTimeZone(),
+      scores: scores.value,
+      totalScore: totalScore.value,
+    })
+  })
+
   function setScore(id: CheckItemId, value: number) {
     scores.value[id] = value
+    previewClock.value += 1
     copyState.value = 'idle'
   }
 
   async function copyFormattedText(): Promise<void> {
-    if (!isComplete.value || totalScore.value === null) return
-
-    const recordedAt = new Date()
-    const timeZone = getBrowserTimeZone()
-    const answered = {} as Record<CheckItemId, number>
-    for (const item of checkItemDefinitions) {
-      const value = scores.value[item.id]
-      if (value === null) return
-      answered[item.id] = value
-    }
-
     const text = formatCopyText({
-      recordedAt,
-      timeZone,
-      scores: answered,
+      recordedAt: new Date(),
+      timeZone: getBrowserTimeZone(),
+      scores: scores.value,
       totalScore: totalScore.value,
     })
 
@@ -54,6 +56,7 @@ export const useRecordStore = defineStore('record', () => {
     copyState,
     isComplete,
     totalScore,
+    previewText,
     setScore,
     copyFormattedText,
   }

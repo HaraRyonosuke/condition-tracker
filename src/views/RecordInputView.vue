@@ -4,7 +4,7 @@ import ScoreForm from '@/components/ScoreForm.vue'
 import { useRecordStore } from '@/stores/record'
 
 const store = useRecordStore()
-const { isComplete, totalScore, copyState } = storeToRefs(store)
+const { previewText, copyState } = storeToRefs(store)
 
 async function onCopy() {
   await store.copyFormattedText()
@@ -15,7 +15,7 @@ async function onCopy() {
   <main class="mx-auto max-w-lg px-4 py-8">
     <h1 class="text-2xl font-semibold text-stone-900">日々の気分チェック</h1>
     <p class="mt-2 text-sm text-stone-600">
-      7問すべてに答えると、合計とコピーが使えます。記録はアプリ内に残さず、クリップボードへコピーします。
+      下の文面は選ぶたびに更新されます。そのままコピーして外部スレッドへ貼ってください。アプリ内には残りません。
     </p>
 
     <div class="mt-8">
@@ -23,21 +23,16 @@ async function onCopy() {
     </div>
 
     <section class="mt-10 rounded-lg border border-stone-200 bg-white p-4">
-      <p class="text-sm text-stone-600">合計</p>
-      <p class="mt-1 text-2xl font-semibold text-stone-900">
-        <template v-if="totalScore === null">— / 21</template>
-        <template v-else>{{ totalScore }} / 21</template>
-      </p>
+      <p class="text-sm font-medium text-stone-700">コピーする文面</p>
+      <pre
+        class="mt-3 overflow-x-auto whitespace-pre-wrap rounded-md bg-stone-50 p-3 text-sm leading-relaxed text-stone-800"
+        >{{ previewText }}</pre>
       <button
         type="button"
-        class="mt-4 w-full rounded-lg px-4 py-3 text-base font-medium"
-        v-bind:class="
-          isComplete ? 'bg-stone-800 text-white' : 'cursor-not-allowed bg-stone-200 text-stone-500'
-        "
-        v-bind:disabled="!isComplete"
+        class="mt-4 w-full rounded-lg bg-stone-800 px-4 py-3 text-base font-medium text-white"
         v-on:click="onCopy"
       >
-        整形テキストをコピー
+        テキストをコピー
       </button>
       <p v-if="copyState === 'copied'" class="mt-3 text-sm text-green-700">コピーしました</p>
       <p v-else-if="copyState === 'error'" class="mt-3 text-sm text-red-700">
