@@ -30,6 +30,9 @@
 | ルーティング | Vue Router 4 |
 | ビルドツール | Vite |
 | パッケージマネージャー | npm |
+| 開発環境 | 自前PC（ローカル） |
+| Node.js | 26.7.0（Volta） |
+| AI開発支援 | Cursor |
 
 技術選定の理由は各ADR（`docs/adr/`）を参照。
 
