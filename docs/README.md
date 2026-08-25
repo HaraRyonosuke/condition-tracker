@@ -15,7 +15,8 @@ docs/
     ├── 002-package-manager.md           # パッケージマネージャーの選定
     ├── 003-development-environment.md   # 開発環境の選定
     ├── 004-node-version-management.md   # Node.js のバージョン管理
-    └── 005-ai-coding-assistant.md       # AI開発支援ツールの選定
+    ├── 005-ai-coding-assistant.md       # AI開発支援ツールの選定
+    └── 006-data-persistence.md          # データの保存と持ち出し
 ```
 
 ## ドキュメントの書き進め方
