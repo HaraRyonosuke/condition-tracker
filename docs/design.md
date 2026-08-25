@@ -6,7 +6,7 @@
 
 | 画面ID | 画面名 | 対応ストーリー | 概要 |
 |--------|--------|---------------|------|
-| S-01 | 記録入力 | US-01, US-03, US-05 | 当日の体調スコア・行動記録を入力する |
+| S-01 | 記録入力 | US-01, US-03, US-05 | 体調スコア・行動記録を入力する |
 | S-02 | 記録一覧 | US-02 | 過去の記録を日付降順で表示する |
 | S-03 | 推移グラフ | US-04 | 体調スコアの推移を折れ線グラフで表示する |
 
@@ -27,9 +27,10 @@ graph LR
 ```mermaid
 erDiagram
     DAILY_RECORD {
-        string id PK "YYYY-MM-DD"
+        string id PK "UUID"
         int total_score "0-21 高いほど当てはまりが強い"
-        datetime recorded_at
+        string recorded_at "ISO 8601 オフセット付き"
+        string time_zone "IANA。ブラウザ設定から取得"
         string memo "自由記述（任意）"
     }
 
@@ -54,12 +55,13 @@ erDiagram
 
 ```typescript
 interface DailyRecord {
-  id: string;             // "YYYY-MM-DD"
+  id: string;             // UUID
   totalScore: number;     // 0-21 高いほど質問への当てはまりが強い
   items: CheckItem[];
   behavior?: BehaviorLog;
   memo?: string;
-  recordedAt: Date;
+  recordedAt: string;     // ISO 8601（オフセット付き）
+  timeZone: string;       // IANA。ブラウザの設定から取得
 }
 
 interface CheckItem {
@@ -117,7 +119,7 @@ US-01 の入力UI（現行ツールから採用するもの）:
 
 - 各項目は 4 列の大きいボタン。上に数値、下にラベル
 - ダークモードは OS の `prefers-color-scheme` に合わせる（専用テーマ選定はスタイルADR）
-- クリップボードへコピーして外部スレッドへ貼る流れは採用しない。アプリ内に保存する
+- クリップボードへコピーして外部スレッドへ貼る流れは、現行ツールの主出力である。アプリ内保存とどちらを正にするかは ADR-006 で比較する。US-01 実装前に決める
 
 現行ツールにあって、このスプリントでは持たないもの:
 
@@ -127,15 +129,15 @@ US-01 の入力UI（現行ツールから採用するもの）:
 - 合計の帯ラベル（低 / 軽度 / 中等度 / 要注意）。診断に読まれやすいので US-01 では点数のみ
 - タイムライン、空き時間、時刻ピッカーの作り込み
 
-`behavior` は、このスプリント（US-03 まで含む当面）では真偽と回数のままにする。
-
-`behavior` は、このスプリント（US-03 まで含む当面）では真偽と回数のままにする。
+`behavior` は、US-03 まで含む当面では真偽と回数のままにする。
 
 - `bathing` / `outdoor`: bool
 - `meals`: 回数（整数）
 
 開始・終了の時間幅で持つ形や、「設定で bool と時間入力を切り替える」汎用化は将来タスクとする。
-一周目の範囲を広げない。US-01 では `behavior` も `memo` も入力・保存しない。
+一周目の範囲を広げない。US-01 では `behavior` も `memo` も入力しない。保存の正（アプリ内かコピー出力か）は ADR-006 で決める。
+
+1件の識別子は日付ではない。1日に複数件あってよい。暦日でのグループ化が必要な画面（一覧）は、`recordedAt` を `timeZone` で解釈した日付でまとめる。画面上の日時表示は `YYYY-MM-DD HH:mm:ss` にタイムゾーン名を添える。
 
 ## 3. コンポーネント構成
 
@@ -168,7 +170,7 @@ graph LR
     Store[useRecordStore] --> A[records: DailyRecord array]
     Store --> B[addRecord]
     Store --> C[updateRecord]
-    Store --> D[getRecordByDate]
+    Store --> D[getRecordsByLocalDate]
 ```
 
 ## 5. 技術スタック
