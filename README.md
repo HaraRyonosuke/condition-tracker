@@ -77,6 +77,12 @@ npm run dev
 npm run build
 ```
 
+### 単体テスト
+
+```sh
+npm run test:unit
+```
+
 ## ライセンス
 
 MIT
