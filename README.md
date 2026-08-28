@@ -25,20 +25,21 @@
 
 ## 技術スタック
 
-| カテゴリ               | 技術                    |
-| ---------------------- | ----------------------- |
-| フレームワーク         | Vue 3 (Composition API) |
-| 言語                   | TypeScript              |
-| 状態管理               | Pinia                   |
-| ビルドツール           | Vite                    |
-| パッケージマネージャー | npm                     |
-| 開発環境               | 自前PC（ローカル）      |
-| Node.js                | 26.7.0（Volta）         |
-| AI開発支援             | Cursor                  |
-| データ持ち出し         | クリップボードへコピー  |
-| スタイリング           | Tailwind CSS            |
-| コード規約             | ESLint + Prettier       |
-| 単体テスト             | Vitest（ADR-009）       |
+| カテゴリ               | 技術                      |
+| ---------------------- | ------------------------- |
+| フレームワーク         | Vue 3 (Composition API)   |
+| 言語                   | TypeScript                |
+| 状態管理               | Pinia                     |
+| ビルドツール           | Vite                      |
+| パッケージマネージャー | npm                       |
+| 開発環境               | 自前PC（ローカル）        |
+| Node.js                | 26.7.0（Volta）           |
+| AI開発支援             | Cursor                    |
+| データ持ち出し         | クリップボードへコピー    |
+| スタイリング           | Tailwind CSS              |
+| コード規約             | ESLint + Prettier         |
+| 単体テスト             | Vitest（ADR-009）         |
+| CI                     | GitHub Actions（ADR-010） |
 
 技術選定の理由は各ADR（`docs/adr/`）を参照。
 

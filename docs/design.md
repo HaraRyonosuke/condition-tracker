@@ -215,7 +215,8 @@ graph LR
 | データ保存・持ち出し   | クリップボードへコピー  | ADR-006                                                              |
 | スタイリング           | Tailwind CSS            | ADR-007                                                              |
 | コード規約             | ESLint + Prettier       | ADR-008                                                              |
-| 単体テスト             | Vitest                  | ADR-009。US-01 の本番確認前に薄く入れる                              |
+| 単体テスト             | Vitest                  | ADR-009                                                              |
+| CI                     | GitHub Actions          | ADR-010。PR で type-check / lint / format / 単体を回す               |
 | デプロイ先             | 未定                    | 初回リリースの最初に決め、そのとき ADR を書く。番号は予約しない      |
 | グラフ描画             | 未定                    | US-04着手時にADRを起こす。番号は予約しない                           |
 
