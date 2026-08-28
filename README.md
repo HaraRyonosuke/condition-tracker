@@ -20,7 +20,7 @@
 「なぜその技術を選んだか」「どのようなトレードオフを受け入れたか」を追跡できる構成にしている。
 
 開発はユーザーストーリー単位のイテレーション（スプリント）で進行する。
-各スプリントは基本設計、詳細設計、実装、テスト、本番環境への導入、確認、振り返りをセットで進める。
+機能スプリントとリリーススプリントに分け、サイクル末尾で振り返りと引き継ぎを行う。
 手順の正は [docs/README.md](./docs/README.md) の「スプリントの進め方」。
 
 ## 技術スタック
@@ -38,6 +38,7 @@
 | データ持ち出し         | クリップボードへコピー  |
 | スタイリング           | Tailwind CSS            |
 | コード規約             | ESLint + Prettier       |
+| 単体テスト             | Vitest（ADR-009）       |
 
 技術選定の理由は各ADR（`docs/adr/`）を参照。
 
@@ -49,6 +50,8 @@
 | [docs/requirements.md](./docs/requirements.md) | 課題定義・ユーザーストーリー                     |
 | [docs/design.md](./docs/design.md)             | 画面設計・データモデル設計                       |
 | [docs/adr/](./docs/adr/)                       | アーキテクチャ決定記録（ADR）                    |
+| [docs/releases/](./docs/releases/)             | 変更履歴の正。GitHub Releases からリンクする     |
+| [docs/conventions.md](./docs/conventions.md)   | 人向けコーディング規約                           |
 
 ## 開発環境のセットアップ
 
