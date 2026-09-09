@@ -69,7 +69,7 @@ flowchart LR
 | 実装     | スコープどおりのコード                 | `src/` と設定                                                                                                                                              |
 | テスト   | 壊れていないことを機械で見る           | `type-check`、lint / format、Vitest の単体（[ADR-009](./adr/009-testing.md)）。PR では同じコマンドを GitHub Actions でも回す（[ADR-010](./adr/010-ci.md)） |
 | 確認     | **ローカル or dev** で受け入れ         | 入力・コピーなど US の成功条件                                                                                                                             |
-| PR       | 実装〜ローカル確認後に出す             | 1 US = 1 ブランチ = 1 PR。CI `check` が通るまで直す。通過後にコメントと Approve を依頼し、揃ってから merge（[pr-merge](../.cursor/rules/pr-merge.mdc)） |
+| PR       | 実装〜ローカル確認後に出す             | 1 US = 1 ブランチ = 1 PR。CI `check` が通るまで直す。通過後にコメントと Approve を依頼し、揃ってから merge（[pr-merge](../.cursor/rules/pr-merge.mdc)）    |
 
 PR の直後に、計画ファイルへ**日付付きの短いメモ**（数行）を残してよい。本振り返りの代わりにはしない。
 
