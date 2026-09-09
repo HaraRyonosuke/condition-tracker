@@ -1,6 +1,6 @@
 # コーディング規約
 
-**ステータス: 一部確定。** 見た目と未使用変数は ESLint + Prettier（ADR-008）に任せる。Vue の書き方は [Vue.js 公式 Style Guide](https://vuejs.org/style-guide/) の Priority A / B を土台にし、対話で閉じた項目だけ下に記録する。未決は既定を仮置きしない。この文書の更新だけでは `src/` を直さない。規約の正はこのファイルだけとする（`.cursor/rules` は作らない）。
+**ステータス: 一部確定。** 見た目と未使用変数は ESLint + Prettier（ADR-008）に任せる。Vue の書き方は [Vue.js 公式 Style Guide](https://vuejs.org/style-guide/) の Priority A / B を土台にし、対話で閉じた項目だけ下に記録する。未決は既定を仮置きしない。この文書の更新だけでは `src/` を直さない。コード規約の正はこのファイルとする。PR の merge 手順は [`.cursor/rules/pr-merge.mdc`](../.cursor/rules/pr-merge.mdc) とする。
 
 ## 根拠にする公開テンプレート
 
@@ -89,5 +89,5 @@ Vue 公式の Priority B / C のうち、対話で選んだもの。`src/` へ�
 
 ## 6. あとでやること（今はやらない）
 
-- Cursor ルール（`.cursor/rules`）は作らない。正は本ファイルのみ。
+- Cursor ルールはコード規約には使わない。PR merge の手順だけ [`.cursor/rules/pr-merge.mdc`](../.cursor/rules/pr-merge.mdc) に置く。
 - 未決が再び出たら、第5節とこの文書のステータスを更新する。
