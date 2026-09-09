@@ -40,6 +40,7 @@
 | コード規約             | ESLint + Prettier         |
 | 単体テスト             | Vitest（ADR-009）         |
 | CI                     | GitHub Actions（ADR-010） |
+| 公開先                 | GitHub Pages（ADR-011）   |
 
 技術選定の理由は各ADR（`docs/adr/`）を参照。
 
