@@ -130,7 +130,7 @@ PR の直後に、計画ファイルへ**日付付きの短いメモ**（数行�
 ### 置き場（確定）
 
 - **変更履歴の正**: [docs/releases/](./releases/)（ルートの `CHANGELOG.md` は作らない）
-- **GitHub Releases**: 出すたびに1件。本文は短い要約と、上の Markdown へのリンク。アプリ内や X への埋め込みは置かない
+- **GitHub Releases**: 出すたびに1件。本文は短い要約と、上の Markdown へのリンク。アプリ内や X への埋め込みは置かない。ソースコードは添付しない。バックエンド開始後の成果物添付も今は決めず、各リリース時に判断する
 - **引き継ぎプロンプト**: 対象 US の Cursor 計画ファイル（`US-xx-NN_*.plan.md`）の末尾に日付付きで残す
 - **規約の正**: コードは [conventions.md](./conventions.md)。PR の merge は [`.cursor/rules/pr-merge.mdc`](../.cursor/rules/pr-merge.mdc)
 
