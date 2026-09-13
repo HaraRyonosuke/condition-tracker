@@ -1,10 +1,10 @@
 # コーディング規約
 
-**ステータス: 一部確定。** 見た目と未使用変数は ESLint + Prettier（ADR-008）に任せる。Vue の書き方は [Vue.js 公式 Style Guide](https://vuejs.org/style-guide/) の Priority A / B を土台にし、対話で閉じた項目だけ下に記録する。未決は既定を仮置きしない。この文書の更新だけでは `src/` を直さない。コード規約の正はこのファイルとする。PR の merge 手順は [`.cursor/rules/pr-merge.mdc`](../.cursor/rules/pr-merge.mdc) とする。
+**ステータス: 一部確定。** 見た目と未使用変数は ESLint + Prettier（ADR-008）に任せる。Vue の書き方は [Vue.js 公式 Style Guide](https://vuejs.org/style-guide/) の Priority A / B を土台にし、対話で閉じた項目だけ下に記録する。未決は既定を仮置きしない。この文書の更新だけでは `src/` を直さない。コード規約の正はこのファイルとする。PR の merge は [`.cursor/rules/pr-merge.mdc`](../.cursor/rules/pr-merge.mdc)、ブランチの切り方は第7節と [`.cursor/rules/branch-names.mdc`](../.cursor/rules/branch-names.mdc) とする。
 
 ## 根拠にする公開テンプレート
 
-[Vue.js 公式 Style Guide](https://vuejs.org/style-guide/) の Priority A（必須）と B（強く推奨）を土台にする。TypeScript と Vue 3 Composition API は、公式ガイドが薄い箇所だけ短く足す。Git のメッセージ規約は広げない。
+[Vue.js 公式 Style Guide](https://vuejs.org/style-guide/) の Priority A（必須）と B（強く推奨）を土台にする。TypeScript と Vue 3 Composition API は、公式ガイドが薄い箇所だけ短く足す。Git のコミットメッセージ規約は広げない。ブランチの切り方は第7節。
 
 ## 1. Priority A
 
@@ -89,5 +89,53 @@ Vue 公式の Priority B / C のうち、対話で選んだもの。`src/` へ�
 
 ## 6. あとでやること（今はやらない）
 
-- Cursor ルールはコード規約には使わない。PR merge の手順だけ [`.cursor/rules/pr-merge.mdc`](../.cursor/rules/pr-merge.mdc) に置く。
+- コードの書き方は Cursor ルールに置かない。Git の手順だけ [`.cursor/rules/`](../.cursor/rules/) に置く（[PR merge](../.cursor/rules/pr-merge.mdc)、[ブランチ名](../.cursor/rules/branch-names.mdc)）。切り方の正は第7節。
+- スプリントを束ねる中間ブランチ（`sprint/` や `develop`）は置かない。関わる人が増えたらこの節に戻す。
 - 未決が再び出たら、第5節とこの文書のステータスを更新する。
+
+## 7. ブランチの切り方
+
+既存ブランチは改名しない。中間ブランチは今は置かない（第6節）。コミットメッセージ規約は広げない。
+
+### 切り方
+
+- `main` へは直接コミットしない。入る経路は PR の merge だけ
+- 起点は常に最新の `origin/main`。未 merge の別 topic から切らない（続ける同一 PR は除く）
+- 作業中のブランチへ、別 US や別種類の変更を足さない
+- 機能は 1 US = 1 ブランチ = 1 PR。接頭辞は `feat` または `fix`。その US の設計・実装・ADR / design 更新はここに載せる
+- その US に属さない変更は、merge 後の `main` から切る。ホスト・CI は `ci/`。ノートやサイクル末尾・規約だけなら `docs/`
+- merge 済みブランチは再利用しない。続きは `main` から新規
+
+### 名前
+
+新規ブランチは `接頭辞/短い説明`。接頭辞は [Conventional Commits](https://www.conventionalcommits.org/) と同じ省略形に限る。`feature` や `release` などのフルスペルは使わない。
+
+説明は英小文字の kebab-case。US 番号を含めてよい。
+
+| 接頭辞     | 使うとき                   |
+| ---------- | -------------------------- |
+| `feat`     | 機能追加                   |
+| `fix`      | 不具合修正                 |
+| `docs`     | 文書のみ                   |
+| `style`    | 整形のみ（挙動は変えない） |
+| `refactor` | 挙動を変えない再構成       |
+| `perf`     | 性能                       |
+| `test`     | テストのみ                 |
+| `build`    | ビルド・依存               |
+| `ci`       | CI・デプロイ設定           |
+| `chore`    | 上記以外                   |
+
+この表にない接頭辞は使わない。
+
+```
+# ❌ BAD
+feature/us-01-score-input
+release/us-01-hosting
+US merge 後のノートを同じ feat/ に足す
+main に直接コミットする
+
+# ✅ GOOD
+feat/us-03-behavior-copy
+docs/us-01-notes を origin/main から切る
+ci/github-pages
+```

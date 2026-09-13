@@ -1,0 +1,27 @@
+---
+description: main から短命の topic だけ切る。直接コミット禁止
+alwaysApply: true
+---
+
+# ブランチの切り方
+
+一覧と切り方の正は [docs/conventions.md](../../docs/conventions.md) 第7節。
+
+- `main` にコミットしない。入る経路は PR の merge だけ
+- 最新の `origin/main` から `接頭辞/短い説明` を切る。未 merge の別 topic から切らない
+- 許可: `feat` `fix` `docs` `style` `refactor` `perf` `test` `build` `ci` `chore`
+- 機能は 1 US = 1 `feat`/`fix`。属さないノート・CI・規約は merge 後に `docs/` または `ci/`
+
+```
+# ❌ BAD
+feature/us-01-score-input
+release/us-01-hosting
+main に直接コミットする
+
+# ✅ GOOD
+feat/us-03-behavior-copy
+docs/us-01-notes
+ci/github-pages
+```
+
+禁止: フルスペル、表にない接頭辞、merge 済みブランチの再利用。既存ブランチは改名しない。
