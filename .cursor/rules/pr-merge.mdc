@@ -1,0 +1,22 @@
+---
+description: CI が通ってからコメントと Approve を依頼し、揃ってから merge する
+alwaysApply: true
+---
+
+# PR の merge
+
+一人リポジトリでは GitHub の必須レビューで自分の PR を止められない。エージェントは次の順で止める。
+
+1. **CI**: ADR-010 の `check` が失敗しているあいだは、修正して push を繰り返す。この段階ではコメントも Approve も依頼しない。merge しない。
+2. **依頼**: `check` が通ったら、あなたに GitHub 上のコメントと、このチャットでの Approve（または「承認」）を依頼して止まる。
+3. **merge**: 両方が揃ってから `gh pr merge` する。コメントは `gh pr view <n> --comments` で確認する。エージェントの代筆は無効。
+
+```
+# ❌ BAD
+CI 待ちのまま Approve を求める / CI 通過ですぐ merge する
+
+# ✅ GOOD
+check 失敗 → 直して push → 通過 → コメントと Approve を依頼 → 揃ってから merge
+```
+
+禁止: 計画の「merge」だけ、エージェント自身の Approve 扱い、CI 未通過での merge。

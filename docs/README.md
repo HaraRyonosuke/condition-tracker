@@ -69,7 +69,7 @@ flowchart LR
 | 実装     | スコープどおりのコード                 | `src/` と設定                                                                                                                                              |
 | テスト   | 壊れていないことを機械で見る           | `type-check`、lint / format、Vitest の単体（[ADR-009](./adr/009-testing.md)）。PR では同じコマンドを GitHub Actions でも回す（[ADR-010](./adr/010-ci.md)） |
 | 確認     | **ローカル or dev** で受け入れ         | 入力・コピーなど US の成功条件                                                                                                                             |
-| PR       | 実装〜ローカル確認後に出す             | 1 US = 1 ブランチ = 1 PR を基本とする                                                                                                                      |
+| PR       | 実装〜ローカル確認後に出す             | 1 US = 1 ブランチ = 1 PR。CI `check` が通るまで直す。通過後にコメントと Approve を依頼し、揃ってから merge（[pr-merge](../.cursor/rules/pr-merge.mdc)）    |
 
 PR の直後に、計画ファイルへ**日付付きの短いメモ**（数行）を残してよい。本振り返りの代わりにはしない。
 
@@ -130,9 +130,9 @@ PR の直後に、計画ファイルへ**日付付きの短いメモ**（数行�
 ### 置き場（確定）
 
 - **変更履歴の正**: [docs/releases/](./releases/)（ルートの `CHANGELOG.md` は作らない）
-- **GitHub Releases**: 出すたびに1件。本文は短い要約と、上の Markdown へのリンク。アプリ内や X への埋め込みは置かない
+- **GitHub Releases**: 出すたびに1件。本文は短い要約と、上の Markdown へのリンク。アプリ内や X への埋め込みは置かない。ソースコードは添付しない。バックエンド開始後の成果物添付も今は決めず、各リリース時に判断する
 - **引き継ぎプロンプト**: 対象 US の Cursor 計画ファイル（`US-xx-NN_*.plan.md`）の末尾に日付付きで残す
-- **規約の正**: [conventions.md](./conventions.md) のみ。`.cursor/rules` は作らない
+- **規約の正**: コードは [conventions.md](./conventions.md)。PR の merge は [`.cursor/rules/pr-merge.mdc`](../.cursor/rules/pr-merge.mdc)
 
 ## ドキュメントの書き進め方
 
