@@ -34,7 +34,7 @@
 | パッケージマネージャー | npm                       |
 | 開発環境               | 自前PC（ローカル）        |
 | Node.js                | 26.7.0（Volta）           |
-| AI開発支援             | Cursor                    |
+| AI開発支援             | Cursor（ADR-012）         |
 | データ持ち出し         | クリップボードへコピー    |
 | スタイリング           | Tailwind CSS              |
 | コード規約             | ESLint + Prettier         |
