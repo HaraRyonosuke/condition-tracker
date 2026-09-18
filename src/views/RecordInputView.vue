@@ -17,7 +17,7 @@ async function onClearClipboard() {
 
 <template>
   <main class="mx-auto max-w-lg px-4 py-8">
-    <h1 class="text-2xl font-semibold text-stone-900">日々の気分チェック</h1>
+    <h1 class="text-2xl font-semibold">日々の気分チェック</h1>
     <p class="mt-2 text-sm text-stone-600">
       下の文面は選ぶたびに更新されます。そのままコピーして外部スレッドへ貼ってください。アプリ内には残りません。
     </p>
