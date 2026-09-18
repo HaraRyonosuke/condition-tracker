@@ -49,5 +49,5 @@ Prettier だけでは規約のうち「誤り」側が残る。
 
 - `npm run lint` と `npm run format` を使う
 - 型チェックは `npm run type-check` のままにする
-- husky / lint-staged は今は入れない
+- husky / lint-staged は今は入れない。コミット時の format / lint は Cursor の `beforeShellExecution`（[`.cursor/hooks/`](../../.cursor/hooks/)）に任せる
 - Tailwind のクラス順専用プラグインは今は入れない

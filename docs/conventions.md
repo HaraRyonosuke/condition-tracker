@@ -89,7 +89,8 @@ Vue 公式の Priority B / C のうち、対話で選んだもの。`src/` へ�
 
 ## 6. あとでやること（今はやらない）
 
-- コードの書き方は Cursor ルールに置かない。Git の手順だけ [`.cursor/rules/`](../.cursor/rules/) に置く（[PR merge](../.cursor/rules/pr-merge.mdc)、[ブランチ名](../.cursor/rules/branch-names.mdc)）。切り方の正は第7節。
+- コードの書き方は Cursor ルールに置かない。Git の手順だけ [`.cursor/rules/`](../.cursor/rules/) と [`.cursor/hooks/`](../.cursor/hooks/) に置く（[PR merge](../.cursor/rules/pr-merge.mdc)、[ブランチ名](../.cursor/rules/branch-names.mdc)、[push 前リファクタ](../.cursor/rules/pre-push-refactor.mdc)）。切り方の正は第7節。
+- コミット時のフックは Prettier / ESLint だけである。push の前に、今回の影響範囲を規約へ合わせてリファクタし、差分があれば最終コミットにしてから push する。husky は使わない（ADR-008）。
 - スプリントを束ねる中間ブランチ（`sprint/` や `develop`）は置かない。関わる人が増えたらこの節に戻す。
 - 未決が再び出たら、第5節とこの文書のステータスを更新する。
 
