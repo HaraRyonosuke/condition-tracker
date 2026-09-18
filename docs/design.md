@@ -154,6 +154,7 @@ graph TD
     Input --> ScoreForm[ScoreForm]
     ScoreForm --> ScoreItem[ScoreItemInput]
     Input --> CopyAction[テキストをコピー]
+    Input --> ClearAction[クリップボードを空にする]
 ```
 
 US-03 をコピー文面へ足すときは、同じ `RecordInputView` に `BehaviorForm` を足す。US-05 はそれより後でメモ欄を足す。
@@ -171,16 +172,16 @@ src/
     └── record.ts
 ```
 
-`App.vue` から `RecordInputView` を出す。コピー処理はストアの `copyFormattedText` を呼ぶ。
+`App.vue` から `RecordInputView` を出す。コピー処理はストアの `copyFormattedText` を呼ぶ。空にする処理は `clearClipboard` を呼ぶ。
 
 ### コンポーネントとストアの責務（US-01）
 
-| 単位              | 責務                                                                                                             |
-| ----------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `RecordInputView` | 画面全体。コピー文面のライブプレビュー、常時有効のコピーボタン                                                   |
-| `ScoreForm`       | 7項目を定義表の順に並べる                                                                                        |
-| `ScoreItemInput`  | 1項目の質問文と 0〜3 の4ボタン                                                                                   |
-| `useRecordStore`  | 入力中の draft（各項目は `number \| null`）。全問後にだけ数値合計。プレビューと `copyFormattedText` で文面を作る |
+| 単位              | 責務                                                                                                                   |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `RecordInputView` | 画面全体。コピー文面のライブプレビュー、注意文、常時有効のコピーと空にするボタン                                       |
+| `ScoreForm`       | 7項目を定義表の順に並べる                                                                                              |
+| `ScoreItemInput`  | 1項目の質問文と 0〜3 の4ボタン                                                                                         |
+| `useRecordStore`  | 入力中の draft（各項目は `number \| null`）。全問後にだけ数値合計。プレビューと `copyFormattedText` / `clearClipboard` |
 
 コピーした瞬間に `id`（UUID）、`recordedAt`、`timeZone` を付ける。日付の入力欄は置かない。
 
@@ -240,6 +241,7 @@ graph LR
 - 未回答は `null`。未回答は文面で `—/3`、未完了の合計は `—/21`。コピーは常に可
 - コピー文面のライブプレビュー。ボタン文言は「テキストをコピー」
 - クリップボードへのコピー（ADR-006）。再読み込みで入力は消えてよい
+- コピー欄の注意文と「クリップボードを空にする」。押したとき空文字を書く。貼った先と、コピー直後の拡張機能は消えない
 - Tailwind CSS（ライトテーマのみ。ADR-007）
 - Pinia の draft ストア。Vue Router は入れない
 

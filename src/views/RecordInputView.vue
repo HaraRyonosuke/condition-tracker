@@ -4,10 +4,14 @@ import ScoreForm from '@/components/ScoreForm.vue'
 import { useRecordStore } from '@/stores/record'
 
 const store = useRecordStore()
-const { previewText, copyState } = storeToRefs(store)
+const { previewText, copyState, clearState } = storeToRefs(store)
 
 async function onCopy() {
   await store.copyFormattedText()
+}
+
+async function onClearClipboard() {
+  await store.clearClipboard()
 }
 </script>
 
@@ -27,6 +31,26 @@ async function onCopy() {
       <pre
         class="mt-3 overflow-x-auto whitespace-pre-wrap rounded-md bg-stone-50 p-3 text-sm leading-relaxed text-stone-800"
         >{{ previewText }}</pre>
+      <div
+        class="mt-4 flex gap-3 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3"
+        role="note"
+      >
+        <svg
+          class="mt-0.5 size-5 shrink-0 text-amber-600"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z"
+            clip-rule="evenodd"
+          />
+        </svg>
+        <p class="text-sm leading-relaxed text-amber-950">
+          クリップボードと貼った先に残ります。空にしても、すでに貼った先やコピー直後の拡張機能からは消えません。
+        </p>
+      </div>
       <button
         type="button"
         class="mt-4 w-full rounded-lg bg-stone-800 px-4 py-3 text-base font-medium text-white"
@@ -34,9 +58,22 @@ async function onCopy() {
       >
         テキストをコピー
       </button>
+      <button
+        type="button"
+        class="mt-2 w-full rounded-lg border-2 border-stone-300 bg-white px-4 py-3 text-base font-medium text-stone-800"
+        v-on:click="onClearClipboard"
+      >
+        クリップボードを空にする
+      </button>
       <p v-if="copyState === 'copied'" class="mt-3 text-sm text-green-700">コピーしました</p>
       <p v-else-if="copyState === 'error'" class="mt-3 text-sm text-red-700">
         コピーできませんでした。ブラウザの権限を確認してください。
+      </p>
+      <p v-if="clearState === 'cleared'" class="mt-3 text-sm text-green-700">
+        クリップボードを空にしました
+      </p>
+      <p v-else-if="clearState === 'error'" class="mt-3 text-sm text-red-700">
+        クリップボードを空にできませんでした。ブラウザの権限を確認してください。
       </p>
     </section>
   </main>

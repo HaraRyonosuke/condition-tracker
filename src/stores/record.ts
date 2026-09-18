@@ -7,6 +7,7 @@ import { formatCopyText } from '@/utils/formatCopyText'
 export const useRecordStore = defineStore('record', () => {
   const scores = ref(emptyScores())
   const copyState = ref<'idle' | 'copied' | 'error'>('idle')
+  const clearState = ref<'idle' | 'cleared' | 'error'>('idle')
   /** Bumps when a score changes so the preview datetime refreshes. */
   const previewClock = ref(0)
 
@@ -33,6 +34,7 @@ export const useRecordStore = defineStore('record', () => {
     scores.value[id] = value
     previewClock.value += 1
     copyState.value = 'idle'
+    clearState.value = 'idle'
   }
 
   async function copyFormattedText(): Promise<void> {
@@ -46,18 +48,33 @@ export const useRecordStore = defineStore('record', () => {
     try {
       await navigator.clipboard.writeText(text)
       copyState.value = 'copied'
+      clearState.value = 'idle'
     } catch {
       copyState.value = 'error'
+      clearState.value = 'idle'
+    }
+  }
+
+  async function clearClipboard(): Promise<void> {
+    try {
+      await navigator.clipboard.writeText('')
+      copyState.value = 'idle'
+      clearState.value = 'cleared'
+    } catch {
+      copyState.value = 'idle'
+      clearState.value = 'error'
     }
   }
 
   return {
     scores,
     copyState,
+    clearState,
     isComplete,
     totalScore,
     previewText,
     setScore,
     copyFormattedText,
+    clearClipboard,
   }
 })
