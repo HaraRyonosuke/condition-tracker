@@ -81,7 +81,8 @@ Permissions-Policy も一段目では置かない。
 
 ## 結果
 
-- 本番 URL は Vercel のプロジェクト URL である。総合確認はここで行う。確定したら README と本節を更新する
+- 本番 URL は https://mood-condition-tracker.vercel.app/ である。総合確認はここで行う。Vercel のプロジェクト名は `mood-condition-tracker`（リポジトリ名 `condition-tracker` とは別）
+- 初期エイリアス `condition-tracker-pi.vercel.app` は Domains から外した。本番の正ではない
 - ビルドは GitHub Actions 上の Node 26.7.0 で `npm run build`。`main` への merge 後に `check` のあと公開する
 - 公開は `scripts/pack-vercel-output.mjs` で `.vercel/output` を作り、`vercel deploy --prebuilt --prod` する。`vercel build` は使わない
 - 本番の `base` は `/` である。GitHub Pages 用の `/condition-tracker/` は使わない
@@ -95,4 +96,4 @@ Permissions-Policy も一段目では置かない。
 1. Vercel で静的プロジェクトを作る。Git 連携の Production 自動デプロイはオフにする
 2. `vercel login` のあとリポジトリで `vercel link` し、`.vercel/project.json` の org / project ID を取る。`.vercel/` はコミットしない
 3. GitHub の Secrets に `VERCEL_TOKEN`、`VERCEL_ORG_ID`、`VERCEL_PROJECT_ID` を置く
-4. 本 ADR の workflow が `main` で通ったら、表示された URL を README と本 ADR の本番 URL に書く
+4. 本 ADR の workflow が `main` で通ったら、表示された URL を README と本 ADR の本番 URL に書く。現在の本番は https://mood-condition-tracker.vercel.app/ である。短い `*.vercel.app` が空いていなければ、Settings → Domains で希望のホストを足す
