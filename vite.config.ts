@@ -7,7 +7,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  // GitHub Pages のプロジェクトサイトでは `/condition-tracker/`（ADR-011）
+  // 本番はルート URL（ADR-013）。GitHub Pages 用のパス付き base は使わない
   base: process.env.VITE_BASE ?? '/',
   plugins: [vue(), tailwindcss(), vueDevTools()],
   resolve: {

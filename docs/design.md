@@ -163,6 +163,7 @@ graph TD
     Input --> BehaviorForm[BehaviorForm]
     BehaviorForm --> MealDialog[MealTimeDialog]
     Input --> CopyAction[テキストをコピー]
+    Input --> ClearAction[クリップボードを空にする]
 ```
 
 US-05 はそれより後でメモ欄を足す。Vue Router は入れない。
@@ -180,18 +181,18 @@ src/
     └── record.ts
 ```
 
-`App.vue` から `RecordInputView` を出す。コピー処理はストアの `copyFormattedText` を呼ぶ。テーマ用の composable は切替 F のタブ内上書きを持つ。`useRecordStore` には置かない。
+`App.vue` から `RecordInputView` を出す。コピー処理はストアの `copyFormattedText` を呼ぶ。空にする処理は `clearClipboard` を呼ぶ。テーマ用の composable は切替 F のタブ内上書きを持つ。`useRecordStore` には置かない。
 
 ### コンポーネントとストアの責務（US-01 / US-03）
 
-| 単位              | 責務                                                                                                                           |
-| ----------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `RecordInputView` | 画面全体。スコアと行動。コピー文面のライブプレビュー、常時有効のコピーボタン                                                   |
-| `ScoreForm`       | 7項目を定義表の順に並べる                                                                                                      |
-| `ScoreItemInput`  | 1項目の質問文と 0〜3 の4ボタン                                                                                                 |
-| `BehaviorForm`    | 入浴・外出の 2 択、食事 4 スロット。未設定の食事を開くと `MealTimeDialog`                                                      |
-| `MealTimeDialog`  | 開いた時刻を初期値にする（未設定のとき）。決定だけ draft に書く。キャンセルは変えない。クリアは `null`。ネイティブの時刻入力   |
-| `useRecordStore`  | 入力中の draft（スコアは `number \| null`、行動は上の型）。全問後にだけ数値合計。プレビューと `copyFormattedText` で文面を作る |
+| 単位              | 責務                                                                                                                                 |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `RecordInputView` | 画面全体。スコアと行動。コピー文面のライブプレビュー、注意文、常時有効のコピーと空にするボタン                                       |
+| `ScoreForm`       | 7項目を定義表の順に並べる                                                                                                            |
+| `ScoreItemInput`  | 1項目の質問文と 0〜3 の4ボタン                                                                                                       |
+| `BehaviorForm`    | 入浴・外出の 2 択、食事 4 スロット。未設定の食事を開くと `MealTimeDialog`                                                            |
+| `MealTimeDialog`  | 開いた時刻を初期値にする（未設定のとき）。決定だけ draft に書く。キャンセルは変えない。クリアは `null`。ネイティブの時刻入力         |
+| `useRecordStore`  | 入力中の draft（スコアは `number \| null`、行動は上の型）。全問後にだけ数値合計。プレビューと `copyFormattedText` / `clearClipboard` |
 
 コピーした瞬間に `id`（UUID）、`recordedAt`、`timeZone` を付ける。日付の入力欄は置かない。
 
@@ -212,24 +213,24 @@ graph LR
 
 ## 5. 技術スタック
 
-| カテゴリ               | 技術                    | 選定理由                                                                 |
-| ---------------------- | ----------------------- | ------------------------------------------------------------------------ |
-| フレームワーク         | Vue 3 (Composition API) | 既存の実務経験                                                           |
-| 言語                   | TypeScript              | 既存の実務経験                                                           |
-| ビルドツール           | Vite                    | Vue 3の標準的な構成                                                      |
-| 状態管理               | Pinia                   | ADR-001                                                                  |
-| ルーティング           | 未導入                  | 一周目は入力画面のみ。一覧をアプリ内に置くときに Vue Router を入れる     |
-| パッケージマネージャー | npm                     | ADR-002                                                                  |
-| 開発環境               | 自前PCのローカル        | ADR-003                                                                  |
-| Node.js                | 26.7.0（Volta）         | ADR-004                                                                  |
-| AI開発支援             | Cursor                  | ADR-005                                                                  |
-| データ保存・持ち出し   | クリップボードへコピー  | ADR-006                                                                  |
-| スタイリング           | Tailwind CSS            | ADR-007                                                                  |
-| コード規約             | ESLint + Prettier       | ADR-008                                                                  |
-| 単体テスト             | Vitest                  | ADR-009                                                                  |
-| CI                     | GitHub Actions          | ADR-010。PR で type-check / lint / format / 単体を回す                   |
-| デプロイ先             | GitHub Pages            | ADR-011。ビルドは Actions（Node 26.7.0）。Vercel は Node 26 対応後に検討 |
-| グラフ描画             | 未定                    | US-04着手時にADRを起こす。番号は予約しない                               |
+| カテゴリ               | 技術                    | 選定理由                                                                        |
+| ---------------------- | ----------------------- | ------------------------------------------------------------------------------- |
+| フレームワーク         | Vue 3 (Composition API) | 既存の実務経験                                                                  |
+| 言語                   | TypeScript              | 既存の実務経験                                                                  |
+| ビルドツール           | Vite                    | Vue 3の標準的な構成                                                             |
+| 状態管理               | Pinia                   | ADR-001                                                                         |
+| ルーティング           | 未導入                  | 一周目は入力画面のみ。一覧をアプリ内に置くときに Vue Router を入れる            |
+| パッケージマネージャー | npm                     | ADR-002                                                                         |
+| 開発環境               | 自前PCのローカル        | ADR-003                                                                         |
+| Node.js                | 26.7.0（Volta）         | ADR-004                                                                         |
+| AI開発支援             | Cursor                  | ADR-005                                                                         |
+| データ保存・持ち出し   | クリップボードへコピー  | ADR-006                                                                         |
+| スタイリング           | Tailwind CSS            | ADR-007                                                                         |
+| コード規約             | ESLint + Prettier       | ADR-008                                                                         |
+| 単体テスト             | Vitest                  | ADR-009                                                                         |
+| CI                     | GitHub Actions          | ADR-010。PR で type-check / lint / format / 単体を回す                          |
+| デプロイ先             | Vercel                  | ADR-013。ビルドは Actions（Node 26.7.0）。ホスト側ビルドは Node 26 対応後に検討 |
+| グラフ描画             | 未定                    | US-04着手時にADRを起こす。番号は予約しない                                      |
 
 ## 6. 実装方針
 
@@ -253,6 +254,7 @@ graph LR
 - 未回答は `null`。未回答は文面で `—/3`、未完了の合計は `—/21`。コピーは常に可
 - コピー文面のライブプレビュー。ボタン文言は「テキストをコピー」
 - クリップボードへのコピー（ADR-006）。再読み込みで入力は消えてよい
+- コピー欄の注意文と「クリップボードを空にする」。押したとき空文字を書く。貼った先と、コピー直後の拡張機能は消えない
 - Pinia の draft ストア。Vue Router は入れない
 
 ### US-03 で実装するもの

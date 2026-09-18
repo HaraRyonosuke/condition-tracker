@@ -11,6 +11,7 @@ export const useRecordStore = defineStore('record', () => {
   const outdoor = ref<boolean | null>(null)
   const meals = ref(emptyMeals())
   const copyState = ref<'idle' | 'copied' | 'error'>('idle')
+  const clearState = ref<'idle' | 'cleared' | 'error'>('idle')
   /** Bumps when draft changes so the preview datetime refreshes. */
   const previewClock = ref(0)
 
@@ -43,6 +44,7 @@ export const useRecordStore = defineStore('record', () => {
   function touchDraft() {
     previewClock.value += 1
     copyState.value = 'idle'
+    clearState.value = 'idle'
   }
 
   function setScore(id: CheckItemId, value: number) {
@@ -71,8 +73,21 @@ export const useRecordStore = defineStore('record', () => {
     try {
       await navigator.clipboard.writeText(text)
       copyState.value = 'copied'
+      clearState.value = 'idle'
     } catch {
       copyState.value = 'error'
+      clearState.value = 'idle'
+    }
+  }
+
+  async function clearClipboard(): Promise<void> {
+    try {
+      await navigator.clipboard.writeText('')
+      copyState.value = 'idle'
+      clearState.value = 'cleared'
+    } catch {
+      copyState.value = 'idle'
+      clearState.value = 'error'
     }
   }
 
@@ -82,6 +97,7 @@ export const useRecordStore = defineStore('record', () => {
     outdoor,
     meals,
     copyState,
+    clearState,
     isComplete,
     totalScore,
     previewText,
@@ -90,5 +106,6 @@ export const useRecordStore = defineStore('record', () => {
     setOutdoor,
     setMealTime,
     copyFormattedText,
+    clearClipboard,
   }
 })
