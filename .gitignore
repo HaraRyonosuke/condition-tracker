@@ -41,3 +41,6 @@ __screenshots__/
 
 # Local scratch (not source)
 .tmp-react-tool.jsx
+
+# Vercel CLI (`vercel link`). IDs go in GitHub Secrets (ADR-013)
+.vercel
