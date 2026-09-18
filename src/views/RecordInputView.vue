@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
+import BehaviorForm from '@/components/BehaviorForm.vue'
 import ScoreForm from '@/components/ScoreForm.vue'
 import { useRecordStore } from '@/stores/record'
 
@@ -20,6 +21,10 @@ async function onCopy() {
 
     <div class="mt-8">
       <ScoreForm />
+    </div>
+
+    <div class="mt-10">
+      <BehaviorForm />
     </div>
 
     <section class="mt-10 rounded-lg border border-stone-200 bg-white p-4">
