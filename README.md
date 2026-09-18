@@ -44,6 +44,11 @@
 
 技術選定の理由は各ADR（`docs/adr/`）を参照。
 
+## 公開面
+
+本番 URL は https://mood-condition-tracker.vercel.app/（[ADR-013](./docs/adr/013-vercel-static-hosting.md)）。
+旧 GitHub Pages（`github.io`）と、初期エイリアス `condition-tracker-pi.vercel.app` は本番の正ではない。
+
 ## ドキュメント
 
 | ドキュメント                                   | 内容                                             |
