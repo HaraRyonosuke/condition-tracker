@@ -49,8 +49,11 @@ Git 連携で Vercel にビルドさせると、ADR-004 と衝突する。
 ## 決定
 
 選択肢Bとする。本番の公開先は Vercel とする。
-ビルドは GitHub Actions 上の Node 26.7.0。`vercel build` と
-`vercel deploy --prebuilt` で成果物だけを置く。ホスト側ではビルドしない。
+ビルドは GitHub Actions 上の Node 26.7.0 で `npm run build`（成果物は `dist`）。
+`vercel build` は使わない。Vercel の builder は `engines.node` を 20 / 22 / 24 と照合し、
+`^26.7.0` を拒否する。`dist` を Build Output API の `.vercel/output` に詰めて
+`vercel deploy --prebuilt` で置く。ホスト側ではビルドしない。
+`vercel.json` に `framework`（vite）、`buildCommand`、`outputDirectory`（`dist`）を書く。
 
 Git 連携の自動デプロイは使わない。二重公開を避ける。
 
@@ -70,13 +73,17 @@ Vercel は `vercel.json` で応答ヘッダーを書ける。一段目で置く�
 - `Referrer-Policy: strict-origin-when-cross-origin`
 - `X-Frame-Options: DENY`
 
+`--prebuilt` では同じ値を `scripts/pack-vercel-output.mjs` が `.vercel/output/config.json` にも書く。
+`vercel.json` だけだと成果物側に乗らない。
+
 `Content-Security-Policy` は資産パスとインラインの確認が要る。一段目では置かない。
 Permissions-Policy も一段目では置かない。
 
 ## 結果
 
 - 本番 URL は Vercel のプロジェクト URL である。総合確認はここで行う。確定したら README と本節を更新する
-- ビルドは GitHub Actions 上の Node 26.7.0。`main` への merge 後に `check` のあと公開する
+- ビルドは GitHub Actions 上の Node 26.7.0 で `npm run build`。`main` への merge 後に `check` のあと公開する
+- 公開は `scripts/pack-vercel-output.mjs` で `.vercel/output` を作り、`vercel deploy --prebuilt --prod` する。`vercel build` は使わない
 - 本番の `base` は `/` である。GitHub Pages 用の `/condition-tracker/` は使わない
 - トークンと org / project の ID は GitHub Secrets（`VERCEL_TOKEN`、`VERCEL_ORG_ID`、`VERCEL_PROJECT_ID`）に置く。リポジトリ本文には書かない
 - GitHub Pages へのデプロイは止める。旧 URL は本番の正ではない

@@ -42,7 +42,8 @@ jobs:
           node-version: '26.7.0'
           cache: npm
       - run: npm ci
+      - run: npm run build
       - run: npm install --global vercel@latest
       - run: vercel pull --yes --environment=production
-      - run: vercel build --prod
+      - run: node scripts/pack-vercel-output.mjs
       - run: vercel deploy --prebuilt --prod
