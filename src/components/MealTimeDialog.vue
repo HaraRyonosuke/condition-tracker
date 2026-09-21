@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { nextTick, ref, watch } from 'vue'
-import { clockTimeHm, toMealHm } from '@/utils/datetime'
+import { computed, nextTick, ref, watch } from 'vue'
+import { clockTimeHm, formatMealDisplay12h, toMealHm } from '@/utils/datetime'
 
 const props = defineProps<{
   open: boolean
@@ -18,6 +18,16 @@ const dialogEl = ref<HTMLDialogElement | null>(null)
 const timeInputEl = ref<HTMLInputElement | null>(null)
 const localTime = ref('00:00')
 let closeReason: 'confirm' | 'clear' | 'cancel' = 'cancel'
+
+const display12h = computed(() => {
+  const hm = toMealHm(localTime.value) ?? clockTimeHm(new Date())
+  return formatMealDisplay12h(hm) ?? { period: '午前' as const, hour: 12, minute: '00' }
+})
+
+const timeFieldLabel = computed(() => {
+  const { period, hour, minute } = display12h.value
+  return `時刻を選ぶ、${period} ${hour}時${minute}分`
+})
 
 function onTimeFieldClick() {
   const el = timeInputEl.value
@@ -91,22 +101,48 @@ watch(
     v-bind:inert="!open"
     v-on:close="onDialogClose"
   >
-    <p class="text-base font-medium">{{ title }}</p>
-    <p class="mt-4 text-sm text-stone-700">時刻</p>
+    <p class="text-center text-base font-medium">{{ title }}</p>
+    <p class="mt-4 text-center text-sm text-stone-700">時刻</p>
     <div class="relative mt-2">
       <input
         ref="timeInputEl"
         v-model="localTime"
         type="time"
         tabindex="-1"
-        class="w-full rounded-md border border-stone-300 bg-white px-3 py-2 text-base text-stone-900"
+        aria-hidden="true"
+        class="pointer-events-none absolute h-px w-px overflow-hidden opacity-0"
       />
       <button
         type="button"
-        class="absolute inset-0 cursor-pointer rounded-md bg-transparent"
-        aria-label="時刻を選ぶ"
+        class="grid w-full cursor-pointer grid-cols-[1.75rem_minmax(0,1fr)_1.75rem] items-center rounded-md border border-stone-300 bg-white px-3 py-3 text-stone-900"
+        v-bind:aria-label="timeFieldLabel"
         v-on:click="onTimeFieldClick"
-      ></button>
+      >
+        <span class="col-start-2 text-center text-base font-medium tracking-wide text-stone-700">
+          {{ display12h.period }}
+        </span>
+        <span
+          class="col-start-2 mt-0.5 text-center text-3xl font-medium tabular-nums tracking-wider text-stone-900"
+        >
+          {{ display12h.hour }}:{{ display12h.minute }}
+        </span>
+        <span class="col-start-3 row-start-2 justify-self-end text-stone-800" aria-hidden="true">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <polyline points="12 6 12 12 16 14" />
+          </svg>
+        </span>
+      </button>
     </div>
     <div class="mt-6 flex flex-col gap-2">
       <button

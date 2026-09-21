@@ -24,7 +24,8 @@ docs/
     ├── 009-testing.md                   # 単体テストと総合テスト
     ├── 010-ci.md                        # PR での自動チェック（CI）
     ├── 011-hosting.md                   # 本番の公開先（GitHub Pages。ADR-013 により superseded）
-    └── 013-vercel-static-hosting.md     # 本番の公開先（Vercel へ静的ファイルを置く）
+    ├── 013-vercel-static-hosting.md     # 本番の公開先（Vercel へ静的ファイルを置く）
+    └── 014-icon-set.md                  # 画面アイコンのセット（Lucide）
 ```
 
 ## スプリントの進め方
