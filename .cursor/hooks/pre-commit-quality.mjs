@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env node
+#!/usr/bin/env node
 /**
  * Cursor beforeShellExecution hook for `git commit`.
  *
