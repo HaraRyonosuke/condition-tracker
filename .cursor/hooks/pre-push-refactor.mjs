@@ -34,28 +34,36 @@ function isGitPushCommand(command) {
 }
 
 function respond(payload) {
-  process.stdout.write(`${JSON.stringify(payload)}\n`)
+  process.stdout.write(`${JSON.stringify(payload)}\n`, () => {
+    process.exit(0)
+  })
 }
+
+process.on('uncaughtException', (error) => {
+  respond({
+    permission: 'deny',
+    user_message: 'push フックが失敗したため、push を止めました。',
+    agent_message: String(error?.stack ?? error),
+  })
+})
 
 const input = parseInput(readStdin())
 const command = input.command ?? ''
 
 if (!isGitPushCommand(command)) {
   respond({ permission: 'allow' })
-  process.exit(0)
+} else {
+  respond({
+    permission: 'ask',
+    user_message: [
+      'push の前に、今回の影響範囲（origin/main...HEAD）を conventions に沿ってリファクタし、必要ならそれを最終コミットにしましたか。',
+      'lint / format だけでは足りません。範囲の外のリファクタは不要です。',
+      '済んでいれば許可、未了なら拒否してください。',
+    ].join('\n'),
+    agent_message: [
+      'git push は確認待ちです。許可が出るまで完了扱いにしないでください。',
+      'まだ影響範囲のリファクタ（最終コミット）が無ければ、拒否されたものとして push せず、先に直してから再度 push してください。',
+      '代諾は無効です。',
+    ].join('\n'),
+  })
 }
-
-respond({
-  permission: 'ask',
-  user_message: [
-    'push の前に、今回の影響範囲（origin/main...HEAD）を conventions に沿ってリファクタし、必要ならそれを最終コミットにしましたか。',
-    'lint / format だけでは足りません。範囲の外のリファクタは不要です。',
-    '済んでいれば許可、未了なら拒否してください。',
-  ].join('\n'),
-  agent_message: [
-    'git push は確認待ちです。許可が出るまで完了扱いにしないでください。',
-    'まだ影響範囲のリファクタ（最終コミット）が無ければ、拒否されたものとして push せず、先に直してから再度 push してください。',
-    '代諾は無効です。',
-  ].join('\n'),
-})
-process.exit(0)
