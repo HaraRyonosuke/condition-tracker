@@ -26,14 +26,16 @@ docs/
     ├── 002-package-manager.md           # パッケージマネージャーの選定
     ├── 003-development-environment.md   # 開発環境の選定
     ├── 004-node-version-management.md   # Node.js のバージョン管理
-    ├── 005-ai-coding-assistant.md       # AI開発支援ツールの選定
+    ├── 005-ai-coding-assistant.md       # AI開発支援ツールの選定（ADR-012 に置換）
     ├── 006-data-persistence.md          # データの保存と持ち出し
     ├── 007-styling.md                   # スタイリング手段の選定
     ├── 008-lint-format.md               # コード規約（Lint とフォーマット）
     ├── 009-testing.md                   # 単体テストと総合テスト
     ├── 010-ci.md                        # PR での自動チェック（CI）
     ├── 011-hosting.md                   # 本番の公開先（GitHub Pages。ADR-013 により superseded）
+    ├── 012-ai-usage-and-generated-code.md # AIの使い方と生成コードの扱い
     ├── 013-vercel-static-hosting.md     # 本番の公開先（Vercel へ静的ファイルを置く）
+    ├── 014-ui-confirmation.md           # 画面確認の場（proposed）
     └── 015-refactor-order.md            # push 前に仕様を当てる順
 ```
 
@@ -41,7 +43,7 @@ docs/
 
 イテレーションとスプリントは同じ単位とする。ユーザーストーリー（US）単位で区切る。
 
-**機能スプリント**と**リリーススプリント**に分ける。7段階（基本設計〜振り返り）は共通の語彙として両方に割り当てる。詳細設計と実装は**往復可**（一直線だけではない）。
+**機能スプリント**と**リリーススプリント**に分ける。基本設計〜振り返りは共通の語彙として両方に割り当てる。生成物確認は機能スプリントだけである。詳細設計と実装は**往復可**（一直線だけではない）。
 
 ```mermaid
 flowchart LR
@@ -49,12 +51,13 @@ flowchart LR
     basicDesign[基本設計]
     detailedDesign[詳細設計]
     implementation[実装]
+    generatedCheck[生成物]
     testing[テスト]
     localVerify[ローカル確認]
     pr[PR]
     basicDesign --> detailedDesign
     detailedDesign <--> implementation
-    implementation --> testing --> localVerify --> pr
+    implementation --> generatedCheck --> testing --> localVerify --> pr
   end
   subgraph releaseSprint [リリーススプリント]
     production[本番導入]
@@ -73,18 +76,31 @@ flowchart LR
 
 ### 機能スプリント
 
-| 段階     | やること                               | 置き場                                                                                                                                                                                                     |
-| -------- | -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 基本設計 | 誰の何を解くか、成功条件、やらないこと | [requirements.md](./requirements.md) の対象 US                                                                                                                                                             |
-| 詳細設計 | 画面・データ・コピー文面・技術判断     | [design.md](./design.md)、[ADR](./adr/)、必要なら [conventions.md](./conventions.md)                                                                                                                       |
-| 実装     | スコープどおりのコード                 | `src/` と設定                                                                                                                                                                                              |
-| テスト   | 壊れていないことを機械で見る           | `type-check`、lint / format、Vitest の単体（[ADR-009](./adr/009-testing.md)）。PR では同じコマンドを GitHub Actions でも回す（[ADR-010](./adr/010-ci.md)）                                                 |
-| 確認     | **ローカル or dev** で受け入れ         | 入力・コピーなど US の成功条件                                                                                                                                                                             |
-| PR       | 実装〜ローカル確認後に出す             | 1 US = 1 ブランチ = 1 PR。切り方は [conventions.md](./conventions.md) 第7節。CI `check` が通るまで直す。通過後にコメントと Approve を依頼し、揃ってから merge（[pr-merge](../.cursor/rules/pr-merge.mdc)） |
+| 段階     | やること                                                                                              | 置き場                                                                                                                                                                                                     |
+| -------- | ----------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 基本設計 | 誰の何を解くか、成功条件、やらないこと                                                                | [requirements.md](./requirements.md) の対象 US                                                                                                                                                             |
+| 詳細設計 | 画面・データ・コピー文面・技術判断                                                                    | [design.md](./design.md)、[ADR](./adr/)、必要なら [conventions.md](./conventions.md)                                                                                                                       |
+| 実装     | スコープどおりのコード。第一稿は Cursor でよい（[ADR-012](./adr/012-ai-usage-and-generated-code.md)） | `src/` と設定                                                                                                                                                                                              |
+| 生成物   | 入れてないメジャー実装の持ち込みを見る。独自性の証明はしない                                          | [ADR-012](./adr/012-ai-usage-and-generated-code.md)。実装の直後、ローカル確認の前                                                                                                                          |
+| テスト   | 壊れていないことを機械で見る                                                                          | `type-check`、lint / format、Vitest の単体（[ADR-009](./adr/009-testing.md)）。PR では同じコマンドを GitHub Actions でも回す（[ADR-010](./adr/010-ci.md)）                                                 |
+| 確認     | **ローカル or dev** で受け入れ                                                                        | 入力・コピーなど US の成功条件                                                                                                                                                                             |
+| PR       | 実装〜ローカル確認後に出す                                                                            | 1 US = 1 ブランチ = 1 PR。切り方は [conventions.md](./conventions.md) 第7節。CI `check` が通るまで直す。通過後にコメントと Approve を依頼し、揃ってから merge（[pr-merge](../.cursor/rules/pr-merge.mdc)） |
 
 PR の直後に、計画ファイルへ**日付付きの短いメモ**（数行）を残してよい。本振り返りの代わりにはしない。
 
 実装中に判断が出たら、先に ADR / `design.md` を更新してからコードを続ける。
+
+上流（要件・ADR・design）は Cursor と相談してよいが、選択肢・制約・決定は自分主導である（[ADR-012](./adr/012-ai-usage-and-generated-code.md)）。
+
+### 生成物（実装の直後）
+
+ローカル確認の前に、次を見る。通っても独自であることの証明にはしない。フックと CI はこのために今は足さない。
+
+- `src/` が、`package.json` に入れてないメジャーなライブラリ（VueUse、lodash、date-fns など）の実装の再掲になっていないか
+- `Copyright` / SPDX / 出典コメントが混ざっていないか
+- ドメインの文面・構造が、知っている他の体調アプリの丸写しに見えないか
+
+Vue / Pinia / Vite の使い方が公式に似ることは見ない。施設提供や商用でより強い証明が必要になったら [ADR-012](./adr/012-ai-usage-and-generated-code.md) を見直す。
 
 ### リリーススプリント
 
@@ -132,11 +148,11 @@ PR の直後に、計画ファイルへ**日付付きの短いメモ**（数行�
 
 ### 完了の定義
 
-| 名称         | 条件                                                                                  |
-| ------------ | ------------------------------------------------------------------------------------- |
-| 機能完了     | ローカル確認まで終わり、PR を merge した（単体は ADR-009 のとおり Vitest を含む）     |
-| リリース完了 | 本番 URL で総合確認し、[releases/](./releases/) を書き、GitHub Release からリンクした |
-| サイクル完了 | 振り返り（3見出し）と引き継ぎプロンプトまで終え、次 US を開始できる                   |
+| 名称         | 条件                                                                                                     |
+| ------------ | -------------------------------------------------------------------------------------------------------- |
+| 機能完了     | 生成物確認（ADR-012）とローカル確認まで終わり、PR を merge した（単体は ADR-009 のとおり Vitest を含む） |
+| リリース完了 | 本番 URL で総合確認し、[releases/](./releases/) を書き、GitHub Release からリンクした                    |
+| サイクル完了 | 振り返り（3見出し）と引き継ぎプロンプトまで終え、次 US を開始できる                                      |
 
 ### 置き場（確定）
 
@@ -144,6 +160,7 @@ PR の直後に、計画ファイルへ**日付付きの短いメモ**（数行�
 - **GitHub Releases**: 出すたびに1件。本文は短い要約と、上の Markdown へのリンク。アプリ内や X への埋め込みは置かない。ソースコードは添付しない。バックエンド開始後の成果物添付も今は決めず、各リリース時に判断する
 - **引き継ぎプロンプト**: 対象 US の Cursor 計画ファイル（`US-xx-NN_*.plan.md`）の末尾に日付付きで残す
 - **規約の正**: コードとブランチの切り方は [conventions.md](./conventions.md)（第7節）。PR の merge は [`.cursor/rules/pr-merge.mdc`](../.cursor/rules/pr-merge.mdc)。push 前のリファクタは [`.cursor/rules/pre-push-refactor.mdc`](../.cursor/rules/pre-push-refactor.mdc)
+- **生成物の確認**: 機能スプリントの実装直後。[ADR-012](./adr/012-ai-usage-and-generated-code.md)。Cursor ルールと CI には置かない
 
 ## ドキュメントの書き進め方
 
@@ -170,4 +187,5 @@ PR の直後に、計画ファイルへ**日付付きの短いメモ**（数行�
 - 判断が後から変わることは想定内。変更の経緯が追跡できることに価値がある
 - ドキュメントは実装中の判断でも更新する。製品全体を書き上げてから実装に入る、という進め方はしない
 - 機能スプリントとリリーススプリントを分け、サイクル末尾で振り返りと引き継ぎを行う
+- 上流の判断は自分主導、下流の第一稿は Cursor でよい。生成物はメジャーな他プロダクトの持ち込みを見る（ADR-012）
 - 先のストーリー用に ADR 番号を予約しない。必要になった時点の次番号を使う
