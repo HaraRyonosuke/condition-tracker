@@ -2,7 +2,7 @@
 
 ## ステータス
 
-accepted
+superseded by ADR-012
 
 ## コンテキスト
 

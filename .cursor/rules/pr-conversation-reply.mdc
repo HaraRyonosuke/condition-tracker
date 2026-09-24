@@ -1,0 +1,24 @@
+---
+description: GitHub の返信は質問を引用してから Cursor として答える
+alwaysApply: true
+---
+
+# conversation の返信
+
+GitHub の conversation に Cursor として書くときは、返信の冒頭に、相手の質問やコメントを引用してから答える。同一アカウントから出すので、引用のあとに次の断りを置く。
+
+名義を分けられないため、同一アカウント（HaraRyonosuke）から Cursor として答えています。
+
+```
+# ❌ BAD
+質問を引用せず、答えだけを書く
+
+# ✅ GOOD
+> これは他の選択肢と同列のものなのでしょうか？
+
+名義を分けられないため、同一アカウント（HaraRyonosuke）から Cursor として答えています。
+
+文書では選択肢Dは A・B・C と同じ並びにあります。
+```
+
+禁止: 引用のない返信。あなたの Approve コメントの代筆。

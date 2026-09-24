@@ -13,7 +13,7 @@ const emit = defineEmits<{
 
 <template>
   <fieldset>
-    <legend class="mb-3 text-base font-medium">{{ text }}</legend>
+    <legend class="mb-3 font-medium">{{ text }}</legend>
     <div class="grid grid-cols-4 gap-2">
       <button
         v-for="option in scaleLabels"
