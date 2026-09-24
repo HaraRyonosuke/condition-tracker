@@ -46,7 +46,6 @@ function run(command, args) {
   })
   return {
     ok: result.status === 0,
-    status: result.status ?? 1,
     stdout: (result.stdout ?? '').trim(),
     stderr: (result.stderr ?? '').trim(),
     output: `${result.stdout ?? ''}${result.stderr ?? ''}`.trim(),
@@ -54,7 +53,7 @@ function run(command, args) {
 }
 
 function runNpmScript(script) {
-  return { script, ...run('npm', ['run', script]) }
+  return run('npm', ['run', script])
 }
 
 function lines(text) {

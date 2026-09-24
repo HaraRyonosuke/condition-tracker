@@ -56,13 +56,14 @@ if (!isGitPushCommand(command)) {
   respond({
     permission: 'ask',
     user_message: [
-      'push の前に、今回の影響範囲（origin/main...HEAD）へ docs/specs の関連仕様を当て、そのあと conventions 第6節の push 前リファクタをしましたか。必要なら最終コミットにしましたか。',
+      'push の前に、今回の影響範囲（origin/main...HEAD）を docs/specs/README.md の表の順で直しましたか。',
+      'リファクタで差分がある場合は、自動でコミットせず、内容を報告して許可を待ってからコミットしましたか。',
       'lint / format だけでは足りません。範囲の外のリファクタは不要です。',
       '済んでいれば許可、未了なら拒否してください。',
     ].join('\n'),
     agent_message: [
       'git push は確認待ちです。許可が出るまで完了扱いにしないでください。',
-      'まだ影響範囲のリファクタ（最終コミット）が無ければ、拒否されたものとして push せず、先に直してから再度 push してください。',
+      'リファクタの差分を、許可の前にコミットしていたら、拒否されたものとして push せず、確認からやり直してください。',
       '代諾は無効です。',
     ].join('\n'),
   })

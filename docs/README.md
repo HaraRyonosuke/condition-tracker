@@ -11,8 +11,14 @@ docs/
 ├── design.md                     # 画面設計・データモデル設計（Mermaid図含む）
 ├── conventions.md                # 人向けコーディング規約（一部確定）
 ├── specs/                        # ツールごとの仕様。push 前リファクタが先に見る
+│   ├── general.md                # 一般リファクタ（いちばん緩い）
+│   ├── form.md                   # ファイルとテンプレートの形
 │   ├── vue.md                    # Vue の書き方
-│   └── tailwind.md               # Tailwind の書き方
+│   ├── tailwind.md               # Tailwind の書き方
+│   ├── pinia.md                  # Pinia の書き方
+│   ├── vite.md                   # Vite の置き方
+│   ├── typescript.md             # TypeScript の型検査
+│   └── vitest.md                 # Vitest の単体テスト
 ├── releases/                     # リリースノート（機能・再デプロイごと）
 └── adr/                          # Architecture Decision Records
     ├── 000-template.md           # ADRテンプレート
@@ -27,7 +33,8 @@ docs/
     ├── 009-testing.md                   # 単体テストと総合テスト
     ├── 010-ci.md                        # PR での自動チェック（CI）
     ├── 011-hosting.md                   # 本番の公開先（GitHub Pages。ADR-013 により superseded）
-    └── 013-vercel-static-hosting.md     # 本番の公開先（Vercel へ静的ファイルを置く）
+    ├── 013-vercel-static-hosting.md     # 本番の公開先（Vercel へ静的ファイルを置く）
+    └── 015-refactor-order.md            # push 前に仕様を当てる順
 ```
 
 ## スプリントの進め方
