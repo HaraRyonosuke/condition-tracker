@@ -24,9 +24,10 @@ function readStdin() {
 }
 
 function parseInput(raw) {
-  if (!raw.trim()) return {}
+  const text = raw.replace(/^\uFEFF/, '').trim()
+  if (!text) return {}
   try {
-    return JSON.parse(raw)
+    return JSON.parse(text)
   } catch {
     return {}
   }
@@ -99,6 +100,12 @@ if (!isGitCommitCommand(command)) {
 
 function runCommitCheck() {
   const stagedBefore = new Set(lines(run('git', ['diff', '--cached', '--name-only']).stdout))
+  const dirtyBefore = new Map(
+    lines(run('git', ['diff', '--name-only']).stdout).map((path) => [
+      path,
+      run('git', ['diff', '--', path]).stdout,
+    ]),
+  )
 
   // 1) Auto-fix
   runNpmScript('format')
@@ -137,8 +144,10 @@ function runCommitCheck() {
     return
   }
 
-  // 3) What did auto-fix change (working tree vs index)?
-  const fixedPaths = lines(run('git', ['diff', '--name-only']).stdout)
+  // 3) Paths whose unstaged diff changed because of auto-fix
+  const fixedPaths = lines(run('git', ['diff', '--name-only']).stdout).filter((path) => {
+    return dirtyBefore.get(path) !== run('git', ['diff', '--', path]).stdout
+  })
   const fixedSet = new Set(fixedPaths)
 
   if (fixedPaths.length > 0) {

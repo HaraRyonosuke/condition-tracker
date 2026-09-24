@@ -18,9 +18,10 @@ function readStdin() {
 }
 
 function parseInput(raw) {
-  if (!raw.trim()) return {}
+  const text = raw.replace(/^\uFEFF/, '').trim()
+  if (!text) return {}
   try {
-    return JSON.parse(raw)
+    return JSON.parse(text)
   } catch {
     return {}
   }
