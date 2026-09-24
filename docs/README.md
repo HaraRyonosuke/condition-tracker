@@ -10,6 +10,9 @@ docs/
 ├── requirements.md               # 課題定義・ユーザーストーリー
 ├── design.md                     # 画面設計・データモデル設計（Mermaid図含む）
 ├── conventions.md                # 人向けコーディング規約（一部確定）
+├── specs/                        # ツールごとの仕様。push 前リファクタが先に見る
+│   ├── vue.md                    # Vue の書き方
+│   └── tailwind.md               # Tailwind の書き方
 ├── releases/                     # リリースノート（機能・再デプロイごと）
 └── adr/                          # Architecture Decision Records
     ├── 000-template.md           # ADRテンプレート

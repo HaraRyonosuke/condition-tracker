@@ -56,7 +56,7 @@ if (!isGitPushCommand(command)) {
   respond({
     permission: 'ask',
     user_message: [
-      'push の前に、今回の影響範囲（origin/main...HEAD）を conventions に沿ってリファクタし、必要ならそれを最終コミットにしましたか。',
+      'push の前に、今回の影響範囲（origin/main...HEAD）へ docs/specs の関連仕様を当て、そのあと conventions 第6節の push 前リファクタをしましたか。必要なら最終コミットにしましたか。',
       'lint / format だけでは足りません。範囲の外のリファクタは不要です。',
       '済んでいれば許可、未了なら拒否してください。',
     ].join('\n'),
