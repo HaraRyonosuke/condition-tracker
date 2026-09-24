@@ -56,6 +56,7 @@ US-01 は、初回の本番確認より前に Vitest を薄く入れる。
 ## 結果
 
 - 機能スプリントの「テスト」は、少なくとも `type-check`、lint / format、Vitest の単体である
+- 単体の書き方の正は [docs/specs/vitest.md](../specs/vitest.md) である
 - リリース前の総合は、本番 URL での人手確認である（ホストの ADR ができたあとその URL）
 - 総合の結果は [docs/releases/](../releases/) のその回のノートに残す
 - ルートに E2E 用のブラウザ自動は置かない

@@ -3,5 +3,7 @@ import RecordInputView from '@/views/RecordInputView.vue'
 </script>
 
 <template>
-  <RecordInputView />
+  <div class="min-h-screen bg-stone-50 text-stone-900 antialiased">
+    <RecordInputView />
+  </div>
 </template>
