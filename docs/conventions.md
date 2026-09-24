@@ -89,9 +89,9 @@ Vue 公式の Priority B / C のうち、対話で選んだもの。`src/` へ�
 
 ## 6. Git の手順
 
-コードの書き方は第1〜4節。この節は Git とフックだけである。
+コードの書き方は第1〜4節。この節は Git、フック、エージェントの手順である。
 
-- コードの書き方は Cursor ルールに置かない。Git の手順だけ [`.cursor/rules/`](../.cursor/rules/) と [`.cursor/hooks/`](../.cursor/hooks/) に置く（[PR merge](../.cursor/rules/pr-merge.mdc)、[ブランチ名](../.cursor/rules/branch-names.mdc)、[push 前リファクタ](../.cursor/rules/pre-push-refactor.mdc)）。切り方の正は第7節。
+- コードの書き方は Cursor ルールに置かない。Git の手順、UI 確認、ADR の提案は [`.cursor/rules/`](../.cursor/rules/) と [`.cursor/hooks/`](../.cursor/hooks/) に置く（[PR merge](../.cursor/rules/pr-merge.mdc)、[ブランチ名](../.cursor/rules/branch-names.mdc)、[push 前リファクタ](../.cursor/rules/pre-push-refactor.mdc)、[UI 確認](../.cursor/rules/ui-canvas.mdc)、[ADR の提案](../.cursor/rules/adr-proposal.mdc)）。切り方の正は第7節。
 - コミット時のフックは Prettier と ESLint を、そのコミットの試行につき1回直して1回確認する。失敗したらそのコミットは止める。次の `git commit` で最初から確認する。自動修正でファイルが変わったら、あなたの許可を待ってからコミットする。差分がなく検査が通ればコミットする。husky は使わない（ADR-008）。
 - push の前に、[docs/specs/README.md](./specs/README.md) の表の順で差分へ当てる。順の一覧はあの表だけを直す。リファクタで差分があれば報告し、許可が出てからコミットする。自動ではコミットしない。直すところが無ければ空コミットは作らない。そのあと push する。フックが許可を求める。手順の正は [push 前リファクタ](../.cursor/rules/pre-push-refactor.mdc)。
 - 未決が再び出たら、第5節とこの文書のステータスを更新する。
