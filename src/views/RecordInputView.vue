@@ -47,14 +47,14 @@ async function onClearClipboard() {
       </div>
       <button
         type="button"
-        class="mt-4 w-full rounded-lg bg-stone-800 px-4 py-3 text-base font-medium text-white"
+        class="mt-4 w-full rounded-lg bg-stone-800 px-4 py-3 font-medium text-white"
         v-on:click="onCopy"
       >
         テキストをコピー
       </button>
       <button
         type="button"
-        class="mt-2 w-full rounded-lg border-2 border-stone-300 bg-white px-4 py-3 text-base font-medium text-stone-800"
+        class="mt-2 w-full rounded-lg border-2 border-stone-300 bg-white px-4 py-3 font-medium text-stone-800"
         v-on:click="onClearClipboard"
       >
         クリップボードを空にする

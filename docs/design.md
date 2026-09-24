@@ -211,14 +211,14 @@ graph LR
 | ルーティング           | 未導入                  | 一周目は入力画面のみ。一覧をアプリ内に置くときに Vue Router を入れる                                                        |
 | パッケージマネージャー | npm                     | ADR-002                                                                                                                     |
 | 開発環境               | 自前PCのローカル        | ADR-003                                                                                                                     |
-| Node.js                | 26.7.0（Volta）         | ADR-004                                                                                                                     |
+| Node.js                | 26.9.0（Volta）         | ADR-004                                                                                                                     |
 | AI開発支援             | Cursor                  | ADR-012（道具の中心は ADR-005 の決定を維持）                                                                                |
 | データ保存・持ち出し   | クリップボードへコピー  | ADR-006                                                                                                                     |
 | スタイリング           | Tailwind CSS            | ADR-007                                                                                                                     |
 | コード規約             | ESLint + Prettier       | ADR-008                                                                                                                     |
 | 単体テスト             | Vitest                  | ADR-009                                                                                                                     |
 | CI                     | GitHub Actions          | ADR-010。PR で type-check / lint / format / 単体を回す                                                                      |
-| デプロイ先             | Vercel                  | ADR-013。ビルドは Actions（Node 26.7.0）。ホスト側ビルドは Node 26 対応後に検討                                             |
+| デプロイ先             | Vercel                  | ADR-013。ビルドは Actions（Node 26.9.0）。ホスト側ビルドは Node 26 対応後に検討                                             |
 | バックエンド           | Rust                    | 実装言語。フレームワーク、ホスト、認証、保存などの技術要素は US-08 着手時に検討する。いまの公開面は静的な Vercel（ADR-013） |
 | グラフ描画             | 未定                    | US-04着手時にADRを起こす。番号は予約しない                                                                                  |
 

@@ -10,6 +10,15 @@ docs/
 ├── requirements.md               # 課題定義・ユーザーストーリー
 ├── design.md                     # 画面設計・データモデル設計（Mermaid図含む）
 ├── conventions.md                # 人向けコーディング規約（一部確定）
+├── specs/                        # ツールごとの仕様。push 前リファクタが先に見る
+│   ├── general.md                # 一般リファクタ（いちばん緩い）
+│   ├── form.md                   # ファイルとテンプレートの形
+│   ├── vue.md                    # Vue の書き方
+│   ├── tailwind.md               # Tailwind の書き方
+│   ├── pinia.md                  # Pinia の書き方
+│   ├── vite.md                   # Vite の置き方
+│   ├── typescript.md             # TypeScript の型検査
+│   └── vitest.md                 # Vitest の単体テスト
 ├── releases/                     # リリースノート（機能・再デプロイごと）
 └── adr/                          # Architecture Decision Records
     ├── 000-template.md           # ADRテンプレート
@@ -25,7 +34,8 @@ docs/
     ├── 010-ci.md                        # PR での自動チェック（CI）
     ├── 011-hosting.md                   # 本番の公開先（GitHub Pages。ADR-013 により superseded）
     ├── 012-ai-usage-and-generated-code.md # AIの使い方と生成コードの扱い
-    └── 013-vercel-static-hosting.md     # 本番の公開先（Vercel へ静的ファイルを置く）
+    ├── 013-vercel-static-hosting.md     # 本番の公開先（Vercel へ静的ファイルを置く）
+    └── 015-refactor-order.md            # push 前に仕様を当てる順
 ```
 
 ## スプリントの進め方
@@ -148,7 +158,7 @@ Vue / Pinia / Vite の使い方が公式に似ることは見ない。施設提�
 - **変更履歴の正**: [docs/releases/](./releases/)（ルートの `CHANGELOG.md` は作らない）
 - **GitHub Releases**: 出すたびに1件。本文は短い要約と、上の Markdown へのリンク。アプリ内や X への埋め込みは置かない。ソースコードは添付しない。バックエンド開始後の成果物添付も今は決めず、各リリース時に判断する
 - **引き継ぎプロンプト**: 対象 US の Cursor 計画ファイル（`US-xx-NN_*.plan.md`）の末尾に日付付きで残す
-- **規約の正**: コードとブランチの切り方は [conventions.md](./conventions.md)（第7節）。PR の merge は [`.cursor/rules/pr-merge.mdc`](../.cursor/rules/pr-merge.mdc)
+- **規約の正**: コードとブランチの切り方は [conventions.md](./conventions.md)（第7節）。PR の merge は [`.cursor/rules/pr-merge.mdc`](../.cursor/rules/pr-merge.mdc)。push 前のリファクタは [`.cursor/rules/pre-push-refactor.mdc`](../.cursor/rules/pre-push-refactor.mdc)
 - **生成物の確認**: 機能スプリントの実装直後。[ADR-012](./adr/012-ai-usage-and-generated-code.md)。Cursor ルールと CI には置かない
 
 ## ドキュメントの書き進め方

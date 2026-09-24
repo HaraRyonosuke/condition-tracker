@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "hooks": {
+    "beforeShellExecution": [
+      {
+        "command": "cmd /c node .cursor/hooks/pre-commit-quality.mjs",
+        "matcher": "git\\s+commit",
+        "failClosed": true,
+        "timeout": 120
+      },
+      {
+        "command": "cmd /c node .cursor/hooks/pre-push-refactor.mjs",
+        "matcher": "git\\s+push",
+        "failClosed": true,
+        "timeout": 30
+      }
+    ]
+  }
+}

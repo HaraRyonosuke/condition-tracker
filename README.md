@@ -33,7 +33,7 @@
 | ビルドツール           | Vite                                |
 | パッケージマネージャー | npm                                 |
 | 開発環境               | 自前PC（ローカル）                  |
-| Node.js                | 26.7.0（Volta）                     |
+| Node.js                | 26.9.0（Volta）                     |
 | AI開発支援             | Cursor（ADR-012）                   |
 | データ持ち出し         | クリップボードへコピー              |
 | スタイリング           | Tailwind CSS                        |
@@ -46,7 +46,7 @@
 
 ## 公開面
 
-本番 URL は https://mood-condition-tracker.vercel.app/（[ADR-013](./docs/adr/013-vercel-static-hosting.md)）。
+本番 URL は [https://mood-condition-tracker.vercel.app/](https://mood-condition-tracker.vercel.app/)（[ADR-013](./docs/adr/013-vercel-static-hosting.md)）。
 旧 GitHub Pages（`github.io`）と、初期エイリアス `condition-tracker-pi.vercel.app` は本番の正ではない。
 
 ## ドキュメント
