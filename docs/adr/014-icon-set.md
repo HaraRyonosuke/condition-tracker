@@ -68,8 +68,8 @@ Lucide は線アイコンのまま数が足り、Tabler より製品のダッシ
 この制約ではこれが最も直接である。
 
 食事時刻の時計は Lucide の [`clock`](https://lucide.dev/icons/clock) とする（[design.md](../design.md) 第7節）。
-ほかの画面のグリフは、使うときに選ぶ。npm パッケージを足すか SVG をリポジトリに置くかは、最初のアイコンを足すときに決める。
-セットの正は Lucide である。
+ほかの画面のグリフは、使うときに選ぶ。セットの正は Lucide である。
+パッケージは `@lucide/vue` とする。読み込むのは、その画面で使っているグリフだけである。いま import するのは `Clock` だけである。
 
 ## 結果
 
@@ -77,5 +77,5 @@ Lucide は線アイコンのまま数が足り、Tabler より製品のダッシ
 - 絵文字は使わない
 - 色は `currentColor`。塗りアイコンを既定にしない
 - daisyUI やコンポーネント庫のアイコンは使わない（ADR-007）
-- 食事時刻の時計は Lucide の `clock`（[design.md](../design.md) 第7節）
+- 食事時刻の時計は Lucide の `clock`（[design.md](../design.md) 第7節）。`@lucide/vue` から `Clock` だけを import する
 - 公式サイトは [lucide.dev](https://lucide.dev)

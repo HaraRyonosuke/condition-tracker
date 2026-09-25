@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Clock } from '@lucide/vue'
 import { computed, nextTick, ref, watch } from 'vue'
 import { clockTimeHm, formatMealDisplay12h, toMealHm } from '@/utils/datetime'
 
@@ -110,7 +111,7 @@ watch(
         type="time"
         tabindex="-1"
         aria-hidden="true"
-        class="pointer-events-none absolute h-px w-px overflow-hidden opacity-0"
+        class="pointer-events-none fixed top-1/2 left-1/2 h-px w-px -translate-x-1/2 -translate-y-1/2 opacity-0"
       />
       <button
         type="button"
@@ -127,20 +128,7 @@ watch(
           {{ display12h.hour }}:{{ display12h.minute }}
         </span>
         <span class="col-start-3 row-start-2 justify-self-end text-stone-800" aria-hidden="true">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <circle cx="12" cy="12" r="10" />
-            <polyline points="12 6 12 12 16 14" />
-          </svg>
+          <Clock v-bind:size="20" v-bind:stroke-width="2" />
         </span>
       </button>
     </div>
