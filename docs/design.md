@@ -130,7 +130,7 @@ US-01 の入力UI（現行ツールから採用するもの）:
 
 - 各項目は 4 列の大きいボタン。上に数値、下にラベル
 - 画面下にコピー文面のライブプレビューを置く。初期は全項目 `—/3`・合計 `—/21`。選択のたびに更新する
-- テーマは ADR-007。色は D3 オリーブ茶。切替は F（OS 既定、タブ内上書き、localStorage なし）。`useRecordStore` には置かない
+- テーマは ADR-007。色は D3 オリーブ茶。切替は画面上部のボタン（OS 既定、タブ内上書き、localStorage なし）。`useRecordStore` には置かない
 - 出力はクリップボードへのコピーである（ADR-006）。アプリ内には履歴を残さない。プレビューはテキスト補間であり、`v-html` は使わない
 
 現行ツールにあって、US-03 でも持たないもの:
@@ -181,7 +181,7 @@ src/
     └── record.ts
 ```
 
-`App.vue` から `RecordInputView` を出す。コピー処理はストアの `copyFormattedText` を呼ぶ。空にする処理は `clearClipboard` を呼ぶ。テーマ用の composable は切替 F のタブ内上書きを持つ。`useRecordStore` には置かない。
+`App.vue` から `RecordInputView` を出す。コピー処理はストアの `copyFormattedText` を呼ぶ。空にする処理は `clearClipboard` を呼ぶ。テーマ用の composable は、画面上部のボタンによるタブ内上書きを持つ。`useRecordStore` には置かない。
 
 ### コンポーネントとストアの責務（US-01 / US-03）
 
@@ -191,7 +191,7 @@ src/
 | `ScoreForm`       | 7項目を定義表の順に並べる                                                                                                            |
 | `ScoreItemInput`  | 1項目の質問文と 0〜3 の4ボタン                                                                                                       |
 | `BehaviorForm`    | 入浴・外出の 2 択、食事 4 スロット。未設定の食事を開くと `MealTimeDialog`                                                            |
-| `MealTimeDialog`  | 第7節「食事時刻の入力」。画面はアプリの 12 時間表示。時計は Lucide の `clock`（ADR-014）。決定だけ draft に書く                      |
+| `MealTimeDialog`  | 第7節「食事時刻の入力」。画面はアプリの 12 時間表示。時計は Lucide の `clock`（ADR-016）。決定だけ draft に書く                      |
 | `useRecordStore`  | 入力中の draft（スコアは `number \| null`、行動は上の型）。全問後にだけ数値合計。プレビューと `copyFormattedText` / `clearClipboard` |
 
 コピーした瞬間に `id`（UUID）、`recordedAt`、`timeZone` を付ける。日付の入力欄は置かない。
@@ -226,7 +226,7 @@ graph LR
 | AI開発支援             | Cursor                  | ADR-012（道具の中心は ADR-005 の決定を維持）                                                                                |
 | データ保存・持ち出し   | クリップボードへコピー  | ADR-006                                                                                                                     |
 | スタイリング           | Tailwind CSS            | ADR-007                                                                                                                     |
-| アイコン               | Lucide                  | ADR-014。個々のグリフは使う画面で選ぶ                                                                                       |
+| アイコン               | Lucide                  | ADR-016。個々のグリフは使う画面で選ぶ                                                                                       |
 | コード規約             | ESLint + Prettier       | ADR-008                                                                                                                     |
 | 単体テスト             | Vitest                  | ADR-009                                                                                                                     |
 | CI                     | GitHub Actions          | ADR-010。PR で type-check / lint / format / 単体を回す                                                                      |
@@ -266,7 +266,7 @@ graph LR
 - 入浴・外出（`boolean | null`）と、朝昼晩・間食の時刻（`HH:MM | null`）
 - 同じライブプレビューへ `[行動]` `[食事]` を足す。プレビューはテキスト補間。`v-html` は使わない
 - 食事はモーダル。入力の正は下の「食事時刻の入力」
-- ダーク（ADR-007）。色は D3 オリーブ茶。切替は F。`html` への反映は composable。記録ストアには置かない
+- ダーク（ADR-007）。色は D3 オリーブ茶。切替は画面上部の Lucide ボタン。`html` への反映は composable。記録ストアには置かない
 
 ### 食事時刻の入力
 
@@ -279,7 +279,7 @@ graph LR
 - 画面は 12 時間表示。午前／午後を上、時:分を下に中央揃えする。時は 1〜12（ゼロ埋めしない）。分はゼロ埋めする
 - ピッカーはネイティブの `input type="time"` を隠し、欄全体のタップで `showPicker()` を開く。午前／午後・時・分の自前セレクトにはしない
 - 12／24 のアプリ内切替は将来タスク。設定画面も localStorage も今は置かない
-- 時計の絵は Lucide の `clock`（ADR-014）。`@lucide/vue` から `Clock` だけを import する。ブラウザ標準のインジケータは出さない。欄全体がタップ範囲
+- 時計の絵は Lucide の `clock`（ADR-016）。`@lucide/vue` から `Clock` だけを import する。ブラウザ標準のインジケータは出さない。欄全体がタップ範囲
 - 分は 1 分刻み（ネイティブの既定）。5 分グリッドやタイムラインは持たない
 
 ### コピー文面（US-03）

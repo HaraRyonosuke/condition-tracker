@@ -1,4 +1,4 @@
-# ADR-014: 画面アイコンのセット選定
+# ADR-016: 画面アイコンのセット選定
 
 ## ステータス
 
@@ -69,7 +69,7 @@ Lucide は線アイコンのまま数が足り、Tabler より製品のダッシ
 
 食事時刻の時計は Lucide の [`clock`](https://lucide.dev/icons/clock) とする（[design.md](../design.md) 第7節）。
 ほかの画面のグリフは、使うときに選ぶ。セットの正は Lucide である。
-パッケージは `@lucide/vue` とする。読み込むのは、その画面で使っているグリフだけである。いま import するのは `Clock` だけである。
+パッケージは `@lucide/vue` とする。読み込むのは、その画面で使っているグリフだけである。いま import するのは `Clock` と、画面上部のモード切替の `Sun` / `Moon` である。
 
 ## 結果
 
@@ -77,5 +77,5 @@ Lucide は線アイコンのまま数が足り、Tabler より製品のダッシ
 - 絵文字は使わない
 - 色は `currentColor`。塗りアイコンを既定にしない
 - daisyUI やコンポーネント庫のアイコンは使わない（ADR-007）
-- 食事時刻の時計は Lucide の `clock`（[design.md](../design.md) 第7節）。`@lucide/vue` から `Clock` だけを import する
+- 食事時刻の時計は Lucide の `clock`（[design.md](../design.md) 第7節）。`@lucide/vue` から、使っているグリフだけを import する。いまは `Clock`、`Sun`、`Moon`
 - 公式サイトは [lucide.dev](https://lucide.dev)
