@@ -53,7 +53,7 @@ function slotDisplay(id: MealSlotId): string {
 <template>
   <div class="flex flex-col gap-8">
     <fieldset class="border-0 p-0">
-      <legend class="mb-3 text-base font-medium text-stone-900">お風呂・シャワー</legend>
+      <legend class="mb-3 text-base font-medium text-ink">お風呂・シャワー</legend>
       <div class="grid grid-cols-2 gap-2">
         <button
           v-for="option in bathingOptions"
@@ -62,8 +62,8 @@ function slotDisplay(id: MealSlotId): string {
           class="flex min-h-16 items-center justify-center rounded-lg border-2 px-2 py-2 text-base"
           v-bind:class="
             bathing === option.value
-              ? 'border-stone-800 bg-stone-800 text-white'
-              : 'border-stone-300 bg-white text-stone-800'
+              ? 'border-select bg-select text-on-select'
+              : 'border-line bg-card text-ink'
           "
           v-on:click="store.setBathing(option.value)"
         >
@@ -73,7 +73,7 @@ function slotDisplay(id: MealSlotId): string {
     </fieldset>
 
     <fieldset class="border-0 p-0">
-      <legend class="mb-3 text-base font-medium text-stone-900">外出</legend>
+      <legend class="mb-3 text-base font-medium text-ink">外出</legend>
       <div class="grid grid-cols-2 gap-2">
         <button
           v-for="option in outdoorOptions"
@@ -82,8 +82,8 @@ function slotDisplay(id: MealSlotId): string {
           class="flex min-h-16 items-center justify-center rounded-lg border-2 px-2 py-2 text-base"
           v-bind:class="
             outdoor === option.value
-              ? 'border-stone-800 bg-stone-800 text-white'
-              : 'border-stone-300 bg-white text-stone-800'
+              ? 'border-select bg-select text-on-select'
+              : 'border-line bg-card text-ink'
           "
           v-on:click="store.setOutdoor(option.value)"
         >
@@ -93,16 +93,16 @@ function slotDisplay(id: MealSlotId): string {
     </fieldset>
 
     <fieldset class="border-0 p-0">
-      <legend class="mb-3 text-base font-medium text-stone-900">食事</legend>
+      <legend class="mb-3 text-base font-medium text-ink">食事</legend>
       <div class="relative z-10 grid grid-cols-2 gap-2">
         <button
           v-for="slot in mealSlotDefinitions"
           v-bind:key="slot.id"
           type="button"
-          class="flex min-h-16 flex-col items-center justify-center rounded-lg border-2 border-stone-300 bg-white px-2 py-2 text-stone-800"
+          class="flex min-h-16 flex-col items-center justify-center rounded-lg border-2 border-line bg-card px-2 py-2 text-ink"
           v-on:click="openMeal(slot.id)"
         >
-          <span class="text-sm text-stone-600">{{ slot.label }}</span>
+          <span class="text-sm text-muted">{{ slot.label }}</span>
           <span class="mt-1 text-base font-medium">{{ slotDisplay(slot.id) }}</span>
         </button>
       </div>

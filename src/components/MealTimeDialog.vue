@@ -98,12 +98,12 @@ watch(
 <template>
   <dialog
     ref="dialogEl"
-    class="m-auto w-[min(100%,20rem)] rounded-lg border border-stone-200 bg-white p-4 text-stone-900 backdrop:bg-stone-900/40"
+    class="m-auto w-[min(100%,20rem)] rounded-lg border border-line bg-card p-4 text-ink backdrop:bg-ink/40"
     v-bind:inert="!open"
     v-on:close="onDialogClose"
   >
     <p class="text-center text-base font-medium">{{ title }}</p>
-    <p class="mt-4 text-center text-sm text-stone-700">時刻</p>
+    <p class="mt-4 text-center text-sm text-muted">時刻</p>
     <div class="relative mt-2">
       <input
         ref="timeInputEl"
@@ -111,23 +111,23 @@ watch(
         type="time"
         tabindex="-1"
         aria-hidden="true"
-        class="pointer-events-none fixed top-1/2 left-1/2 h-px w-px -translate-x-1/2 -translate-y-1/2 opacity-0"
+        class="pointer-events-none absolute top-full left-1/2 h-px w-44 -translate-x-1/2 opacity-0"
       />
       <button
         type="button"
-        class="grid w-full cursor-pointer grid-cols-[1.75rem_minmax(0,1fr)_1.75rem] items-center rounded-md border border-stone-300 bg-white px-3 py-3 text-stone-900"
+        class="grid w-full cursor-pointer grid-cols-[1.75rem_minmax(0,1fr)_1.75rem] items-center rounded-md border border-line bg-card px-3 py-3 text-ink"
         v-bind:aria-label="timeFieldLabel"
         v-on:click="onTimeFieldClick"
       >
-        <span class="col-start-2 text-center text-base font-medium tracking-wide text-stone-700">
+        <span class="col-start-2 text-center text-base font-medium tracking-wide text-muted">
           {{ display12h.period }}
         </span>
         <span
-          class="col-start-2 mt-0.5 text-center text-3xl font-medium tabular-nums tracking-wider text-stone-900"
+          class="col-start-2 mt-0.5 text-center text-3xl font-medium tabular-nums tracking-wider text-ink"
         >
           {{ display12h.hour }}:{{ display12h.minute }}
         </span>
-        <span class="col-start-3 row-start-2 justify-self-end text-stone-800" aria-hidden="true">
+        <span class="col-start-3 row-start-2 justify-self-end text-ink" aria-hidden="true">
           <Clock v-bind:size="20" v-bind:stroke-width="2" />
         </span>
       </button>
@@ -135,21 +135,21 @@ watch(
     <div class="mt-6 flex flex-col gap-2">
       <button
         type="button"
-        class="w-full rounded-lg bg-stone-800 px-4 py-3 text-base font-medium text-white"
+        class="w-full rounded-lg bg-select px-4 py-3 text-base font-medium text-on-select"
         v-on:click="onConfirm"
       >
         決定
       </button>
       <button
         type="button"
-        class="w-full rounded-lg border-2 border-stone-300 bg-white px-4 py-3 text-base font-medium text-stone-800"
+        class="w-full rounded-lg border-2 border-line bg-card px-4 py-3 text-base font-medium text-ink"
         v-on:click="onClear"
       >
         クリア
       </button>
       <button
         type="button"
-        class="w-full rounded-lg px-4 py-3 text-base font-medium text-stone-700"
+        class="w-full rounded-lg px-4 py-3 text-base font-medium text-muted"
         v-on:click="onCancelClick"
       >
         キャンセル

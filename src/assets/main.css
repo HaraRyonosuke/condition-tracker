@@ -1,1 +1,36 @@
 @import 'tailwindcss';
+
+@theme inline {
+  --color-page: var(--app-page);
+  --color-card: var(--app-card);
+  --color-ink: var(--app-ink);
+  --color-muted: var(--app-muted);
+  --color-line: var(--app-line);
+  --color-select: var(--app-select);
+  --color-on-select: var(--app-on-select);
+  --color-danger: var(--app-danger);
+}
+
+:root {
+  --app-page: #f3f2e8;
+  --app-card: #fbfaf3;
+  --app-ink: #262418;
+  --app-muted: #6b6a4e;
+  --app-line: #dddabf;
+  --app-select: #5a5c32;
+  --app-on-select: #fbfaf3;
+  --app-danger: #b42318;
+  color-scheme: light;
+}
+
+.dark {
+  --app-page: #14140c;
+  --app-card: #1e1e14;
+  --app-ink: #f0eedc;
+  --app-muted: #b0ad88;
+  --app-line: #3a3a24;
+  --app-select: #d4d4a0;
+  --app-on-select: #14140c;
+  --app-danger: #f97066;
+  color-scheme: dark;
+}
