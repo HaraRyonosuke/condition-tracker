@@ -16,8 +16,17 @@ const emit = defineEmits<{
 }>()
 
 const dialogEl = ref<HTMLDialogElement | null>(null)
+const timeInputEl = ref<HTMLInputElement | null>(null)
 const localTime = ref('00:00')
+const nativeFallback = ref(!canUseShowPicker())
 let closeReason: 'confirm' | 'clear' | 'cancel' = 'cancel'
+
+function canUseShowPicker(): boolean {
+  return (
+    typeof HTMLInputElement !== 'undefined' &&
+    typeof HTMLInputElement.prototype.showPicker === 'function'
+  )
+}
 
 const display12h = computed(() => {
   const hm = toMealHm(localTime.value) ?? clockTimeHm(new Date())
@@ -29,13 +38,17 @@ const timeFieldLabel = computed(() => {
   return `時刻を選ぶ、${period} ${hour}時${minute}分`
 })
 
-function onTimeFieldClick(event: MouseEvent) {
-  const el = event.currentTarget
-  if (!(el instanceof HTMLInputElement) || typeof el.showPicker !== 'function') return
+function onTimeFieldClick() {
+  const el = timeInputEl.value
+  if (!el || typeof el.showPicker !== 'function') {
+    nativeFallback.value = true
+    return
+  }
   try {
     el.showPicker()
   } catch {
-    // dialog 内では showPicker が拒否されることがある。タップ自体はネイティブ入力へ届いている。
+    // dialog 内では showPicker が拒否されることがある。次のタップはネイティブ入力へ届く。
+    nativeFallback.value = true
   }
 }
 
@@ -104,9 +117,13 @@ watch(
     <p class="text-center text-base font-medium">{{ title }}</p>
     <p class="mt-4 text-center text-sm text-muted">時刻</p>
     <div class="relative mt-2">
-      <div
-        class="grid w-full grid-cols-[1.75rem_minmax(0,1fr)_1.75rem] items-center rounded-md border border-line bg-card px-3 py-3 text-ink"
-        aria-hidden="true"
+      <button
+        type="button"
+        class="grid w-full cursor-pointer grid-cols-[1.75rem_minmax(0,1fr)_1.75rem] items-center rounded-md border border-line bg-card px-3 py-3 text-ink"
+        v-bind:aria-hidden="nativeFallback ? true : undefined"
+        v-bind:tabindex="nativeFallback ? -1 : undefined"
+        v-bind:aria-label="timeFieldLabel"
+        v-on:click="onTimeFieldClick"
       >
         <span class="col-start-2 text-center text-base font-medium tracking-wide text-muted">
           {{ display12h.period }}
@@ -116,16 +133,23 @@ watch(
         >
           {{ display12h.hour }}:{{ display12h.minute }}
         </span>
-        <span class="col-start-3 row-start-2 justify-self-end text-ink">
+        <span class="col-start-3 row-start-2 justify-self-end text-ink" aria-hidden="true">
           <Clock v-bind:size="20" v-bind:stroke-width="2" />
         </span>
-      </div>
+      </button>
       <input
+        ref="timeInputEl"
         v-model="localTime"
         type="time"
-        class="absolute inset-0 z-10 h-full w-full cursor-pointer opacity-0"
-        v-bind:aria-label="timeFieldLabel"
-        v-on:click="onTimeFieldClick"
+        v-bind:tabindex="nativeFallback ? undefined : -1"
+        v-bind:aria-hidden="nativeFallback ? undefined : true"
+        v-bind:aria-label="nativeFallback ? timeFieldLabel : undefined"
+        class="absolute opacity-0"
+        v-bind:class="
+          nativeFallback
+            ? 'inset-0 z-10 h-full w-full cursor-pointer'
+            : 'pointer-events-none top-full left-1/2 h-px w-44 -translate-x-1/2'
+        "
       />
     </div>
     <div class="mt-6 flex flex-col gap-2">
