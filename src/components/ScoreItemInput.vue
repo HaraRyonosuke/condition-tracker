@@ -22,8 +22,8 @@ const emit = defineEmits<{
         class="flex min-h-16 flex-col items-center justify-center rounded-lg border-2 px-1 py-2"
         v-bind:class="
           modelValue === option.value
-            ? 'border-stone-800 bg-stone-800 text-white'
-            : 'border-stone-300 bg-white text-stone-800'
+            ? 'border-select bg-select text-on-select'
+            : 'border-line bg-card text-ink'
         "
         v-on:click="emit('update:modelValue', option.value)"
       >

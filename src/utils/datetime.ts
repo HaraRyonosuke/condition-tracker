@@ -10,6 +10,36 @@ export function getBrowserTimeZone(): string {
   return Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'
 }
 
+/** Local clock as HH:MM. Meal copy has no time zone name. */
+export function clockTimeHm(date: Date): string {
+  return `${pad(date.getHours())}:${pad(date.getMinutes())}`
+}
+
+/** Native `input type=time` may include seconds. Copy uses HH:MM. */
+export function toMealHm(value: string): string | null {
+  const match = /^(\d{2}):(\d{2})/.exec(value.trim())
+  if (!match) return null
+  return `${match[1]}:${match[2]}`
+}
+
+export type MealDisplay12h = {
+  period: '午前' | '午後'
+  hour: number
+  minute: string
+}
+
+/** Screen label for a meal time. Copy stays 24h HH:MM. Hour is 1–12, not zero-padded. */
+export function formatMealDisplay12h(value: string): MealDisplay12h | null {
+  const hm = toMealHm(value)
+  if (!hm) return null
+  const hours = Number(hm.slice(0, 2))
+  const minute = hm.slice(3, 5)
+  if (!Number.isInteger(hours) || hours < 0 || hours > 23) return null
+  const period = hours < 12 ? '午前' : '午後'
+  const hour = hours % 12 === 0 ? 12 : hours % 12
+  return { period, hour, minute }
+}
+
 /** ISO 8601 with numeric offset. Uses the host local clock, not VPN IP. */
 export function toIsoWithOffset(date: Date): string {
   const offsetMinutes = -date.getTimezoneOffset()
