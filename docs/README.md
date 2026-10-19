@@ -19,10 +19,10 @@ docs/
 │   ├── vite.md                   # Vite の置き方
 │   ├── typescript.md             # TypeScript の型検査
 │   └── vitest.md                 # Vitest の単体テスト
-├── test-items/                   # 総合のテスト項目（リリースごと）
+├── test-items/                   # Product Test（リリースごと）
 │   ├── README.md                 # 引き継ぎ方
 │   └── US-03/
-│       └── manual.md             # US-03 の項目。US-01 の項目を含む
+│       └── product-test.md      # US-03 の項目。US-01 の項目を含む
 ├── releases/                     # リリースノート（機能・再デプロイごと）
 └── adr/                          # Architecture Decision Records
     ├── 000-template.md           # ADRテンプレート
@@ -115,7 +115,7 @@ Vue / Pinia / Vite の使い方が公式に似ることは見ない。施設提�
 | 確認（総合）     | 本番 URL で受け入れ条件を人が満たすか見る。結果はその回のノートに残す  | 項目は [test-items/](./test-items/README.md)。結果は [releases/](./releases/)。[ADR-009](./adr/009-testing.md) |
 | リリースノート   | 何が変わったかを短く残す。GitHub Releases からそのファイルへリンクする | [releases/](./releases/)                                                                                       |
 
-**確認の定義:** Preview URL だけでは足りない。利用者が使う本番 URL で総合テストする。項目は [test-items/](./test-items/README.md)。新しい総合テストは直近の `manual.md` をコピーして直す。結果は [releases/](./releases/) のその回のノートに残す。
+**確認の定義:** Preview URL だけでは足りない。利用者が使う本番 URL で Product Test をする。項目は [test-items/](./test-items/README.md)。新しい Product Test は直近の `product-test.md` をコピーして直す。結果は [releases/](./releases/) のその回のノートに残す。
 
 一周目は**初回リリーススプリント**として独立してよい（ホスト接続・HTTPS 総合・ノート・GitHub Release）。2周目以降は、機能 PR の merge 後に**短い再デプロイ**で足りる。公開面が更新されたら、触った操作だけ本番 URL で確認し、ノートを短く書く。
 
