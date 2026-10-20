@@ -1,0 +1,31 @@
+---
+description: 作業の進捗は GitHub issue に書き、Cursor の計画ファイルは使わない
+alwaysApply: true
+---
+
+# 作業は issue
+
+進捗と未決の置き場は GitHub issue である。Cursor の計画ファイル（`.plan.md` や Plans）は読まない。新しく書かない。末尾の引き継ぎも書かない。
+
+恒久の判断は `docs/` が正。issue は、いまの作業と未決を分けて持つ。
+
+1. 話している作業は、着手の前に issue へ分ける
+2. 状況が変わったら、その issue の本文を更新する
+3. 引き継ぎは対象の issue に日付付きで残す
+4. 完了した作業の issue は閉じる
+
+本文の見出しと、肥大化したら分ける条件は [issue-format](./issue-format.mdc)。状況が変わったことの記録は本文に書く。署名のためだけにコメントは足さない。
+
+エージェントが書くコメントの署名は [pr-conversation-reply](./pr-conversation-reply.mdc)。本文には署名を置かない。
+
+PR の merge は [pr-merge](./pr-merge.mdc) のまま。issue に merge と書いてあっても、GitHub のコメントとチャットの Approve が揃うまでは merge しない。
+
+```
+# ❌ BAD
+計画ファイルを開いて正にする / 計画の末尾に引き継ぎを書く / issue を切らずに作業を進める
+
+# ✅ GOOD
+作業を issue に分ける → 進捗は issue に書く → 完了で閉じる
+```
+
+禁止: 計画ファイルを正にすること、計画の todo だけで着手すること。
