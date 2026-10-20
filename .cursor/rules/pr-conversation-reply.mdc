@@ -1,17 +1,21 @@
 ---
-description: GitHub の返信は質問を引用してから Cursor として答える
+description: GitHub に Cursor として書くときは、返信は引用し、コメントには署名を置く
 alwaysApply: true
 ---
 
-# conversation の返信
+# GitHub に Cursor として書く
 
-GitHub の conversation に Cursor として書くときは、返信の冒頭に、相手の質問やコメントを引用してから答える。同一アカウントから出すので、引用のあとに次の断りを置く。
+同一アカウントから出すので、エージェントが書く GitHub のコメントは、先頭に次の断りを置く。issue の経過コメントも、PR の返信も同じである。
 
 名義を分けられないため、同一アカウント（HaraRyonosuke）から Cursor として答えています。
 
+誰かの質問やコメントへの返信では、その前に引用を置く。引用する相手がいない経過のコメントでは、引用を作らない。
+
+issue の本文にはこの文を置かない。見出しは [issue-format](./issue-format.mdc)。本文の更新は [issues-not-plans](./issues-not-plans.mdc)。Approve の代筆は [pr-merge](./pr-merge.mdc) が禁止する。
+
 ```
 # ❌ BAD
-質問を引用せず、答えだけを書く
+質問を引用せず、答えだけを書く / 署名のない issue コメントを書く / issue の本文に断り文を入れる
 
 # ✅ GOOD
 > これは他の選択肢と同列のものなのでしょうか？
@@ -21,4 +25,15 @@ GitHub の conversation に Cursor として書くときは、返信の冒頭に
 文書では選択肢Dは A・B・C と同じ並びにあります。
 ```
 
-禁止: 引用のない返信。あなたの Approve コメントの代筆。
+経過のコメントは、引用せずに断りから始める。
+
+```
+# ✅ GOOD
+名義を分けられないため、同一アカウント（HaraRyonosuke）から Cursor として答えています。
+
+2026-10-20
+
+残すことは書いて、この issue を閉じます。
+```
+
+禁止: 引用のない返信。署名のないコメント。本文への署名。
