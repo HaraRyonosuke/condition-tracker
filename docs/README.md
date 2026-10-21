@@ -41,7 +41,8 @@ docs/
     ├── 013-vercel-static-hosting.md     # 本番の公開先（Vercel へ静的ファイルを置く）
     ├── 014-ui-confirmation.md           # 画面確認の場（proposed）
     ├── 015-refactor-order.md            # push 前に仕様を当てる順
-    └── 016-icon-set.md                  # 画面アイコンのセット（Lucide）
+    ├── 016-icon-set.md                  # 画面アイコンのセット（Lucide）
+    └── 017-node-npm-minor-updates.md    # Node.js と npm のマイナー以降の更新
 ```
 
 ## スプリントの進め方
