@@ -56,9 +56,8 @@ jobs:
 
           items=$(gh api graphql \
             -f id="$ISSUE_NODE_ID" \
-            -F number="$PROJECT_NUMBER" \
             -f query='
-              query($id: ID!, $number: Int!) {
+              query($id: ID!) {
                 node(id: $id) {
                   ... on Issue {
                     projectItems(first: 20) {
