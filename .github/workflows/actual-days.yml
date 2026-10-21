@@ -1,0 +1,130 @@
+# Actual Days を condition tracker project に書く。
+# Start date があり、issue が閉じているときだけ、日本時間の日付で
+# 閉じた日 − Start date + 1 を入れる。開き直したときと、Start date が空のときは空にする。
+# ユーザー所有の Project は GITHUB_TOKEN では書けない。secret PROJECT_TOKEN を使う。
+# issue の closed / reopened は、このファイルが main にあるときだけ動く。
+
+name: Actual Days
+
+on:
+  issues:
+    types: [closed, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  set-actual-days:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update Actual Days
+        env:
+          GH_TOKEN: ${{ secrets.PROJECT_TOKEN }}
+          ISSUE_NODE_ID: ${{ github.event.issue.node_id }}
+          ISSUE_ACTION: ${{ github.event.action }}
+          CLOSED_AT: ${{ github.event.issue.closed_at }}
+          PROJECT_LOGIN: HaraRyonosuke
+          PROJECT_NUMBER: 4
+        run: |
+          set -euo pipefail
+          if [ -z "${GH_TOKEN:-}" ]; then
+            echo "PROJECT_TOKEN がリポジトリの Actions secret にありません。"
+            exit 1
+          fi
+
+          project_ids=$(gh api graphql \
+            -f login="$PROJECT_LOGIN" \
+            -F number="$PROJECT_NUMBER" \
+            -f query='
+              query($login: String!, $number: Int!) {
+                user(login: $login) {
+                  projectV2(number: $number) {
+                    id
+                    field(name: "Actual Days") {
+                      ... on ProjectV2FieldCommon { id }
+                    }
+                  }
+                }
+              }' \
+            --jq '.data.user.projectV2.id + " " + .data.user.projectV2.field.id')
+          project_id=${project_ids%% *}
+          field_id=${project_ids##* }
+          if [ -z "$project_id" ] || [ "$project_id" = "null" ] || [ -z "$field_id" ] || [ "$field_id" = "null" ]; then
+            echo "Actual Days の欄が見つかりません。"
+            exit 1
+          fi
+
+          items=$(gh api graphql \
+            -f id="$ISSUE_NODE_ID" \
+            -F number="$PROJECT_NUMBER" \
+            -f query='
+              query($id: ID!, $number: Int!) {
+                node(id: $id) {
+                  ... on Issue {
+                    projectItems(first: 20) {
+                      nodes {
+                        id
+                        project { number }
+                        fieldValueByName(name: "Start date") {
+                          ... on ProjectV2ItemFieldDateValue { date }
+                        }
+                      }
+                    }
+                  }
+                }
+              }' \
+            --jq '.data.node.projectItems.nodes')
+          item_id=$(jq -r --argjson number "$PROJECT_NUMBER" \
+            '[.[] | select(.project.number == $number)][0].id // empty' <<<"$items")
+          start_date=$(jq -r --argjson number "$PROJECT_NUMBER" \
+            '[.[] | select(.project.number == $number)][0].fieldValueByName.date // empty' <<<"$items")
+          if [ -z "$item_id" ]; then
+            echo "condition tracker project に載っていないので、Actual Days は書きません。"
+            exit 0
+          fi
+
+          if [ "$ISSUE_ACTION" != "closed" ] || [ -z "$start_date" ]; then
+            gh api graphql \
+              -f project="$project_id" \
+              -f item="$item_id" \
+              -f field="$field_id" \
+              -f query='
+                mutation($project: ID!, $item: ID!, $field: ID!) {
+                  clearProjectV2ItemFieldValue(input: {
+                    projectId: $project
+                    itemId: $item
+                    fieldId: $field
+                  }) {
+                    projectV2Item { id }
+                  }
+                }' >/dev/null
+            echo "Actual Days を空にしました。"
+            exit 0
+          fi
+
+          export START_DATE="$start_date"
+          days=$(python3 -c 'from datetime import datetime, date
+          from zoneinfo import ZoneInfo
+          import os
+          closed = datetime.fromisoformat(os.environ["CLOSED_AT"].replace("Z", "+00:00"))
+          closed_date = closed.astimezone(ZoneInfo("Asia/Tokyo")).date()
+          start = date.fromisoformat(os.environ["START_DATE"])
+          print((closed_date - start).days + 1)')
+
+          gh api graphql \
+            -f project="$project_id" \
+            -f item="$item_id" \
+            -f field="$field_id" \
+            -F days="$days" \
+            -f query='
+              mutation($project: ID!, $item: ID!, $field: ID!, $days: Float!) {
+                updateProjectV2ItemFieldValue(input: {
+                  projectId: $project
+                  itemId: $item
+                  fieldId: $field
+                  value: { number: $days }
+                }) {
+                  projectV2Item { id }
+                }
+              }' >/dev/null
+          echo "Actual Days を ${days} にしました。"
