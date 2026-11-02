@@ -92,7 +92,7 @@ flowchart LR
 | 確認     | **ローカル or dev** で受け入れ                                                                        | 入力・コピーなど US の成功条件                                                                                                                                                                             |
 | PR       | 実装〜ローカル確認後に出す                                                                            | 1 US = 1 ブランチ = 1 PR。切り方は [conventions.md](./conventions.md) 第7節。CI `check` が通るまで直す。通過後にコメントと Approve を依頼し、揃ってから merge（[pr-merge](../.cursor/rules/pr-merge.mdc)） |
 
-PR の直後に、計画ファイルへ**日付付きの短いメモ**（数行）を残してよい。本振り返りの代わりにはしない。
+PR の直後に、対象の GitHub issue へ**日付付きの短いメモ**（数行）を残してよい。本振り返りの代わりにはしない。
 
 実装中に判断が出たら、先に ADR / `design.md` を更新してからコードを続ける。
 
@@ -150,7 +150,7 @@ Vue / Pinia / Vite の使い方が公式に似ることは見ない。施設提�
 （次に解く US、未決、docs で正とする節）
 ```
 
-引き継ぎプロンプトは、対象 US の**計画ファイル末尾**に日付付きで残す。恒久の判断は `docs/` が正。引き継ぎは新チャット起動用。
+引き継ぎプロンプトは、対象の GitHub issue に日付付きで残す。計画ファイルの末尾には書かない。恒久の判断は `docs/` が正。引き継ぎは新チャット起動用。
 
 ### 完了の定義
 
@@ -164,7 +164,9 @@ Vue / Pinia / Vite の使い方が公式に似ることは見ない。施設提�
 
 - **変更履歴の正**: [docs/releases/](./releases/)（ルートの `CHANGELOG.md` は作らない）
 - **GitHub Releases**: 出すたびに1件。本文は短い要約と、上の Markdown へのリンク。アプリ内や X への埋め込みは置かない。ソースコードは添付しない。バックエンド開始後の成果物添付も今は決めず、各リリース時に判断する
-- **引き継ぎプロンプト**: 対象 US の Cursor 計画ファイル（`US-xx-NN_*.plan.md`）の末尾に日付付きで残す
+- **作業の置き場**: GitHub issue。進捗と未決はそこに書く。Cursor の計画ファイル（`.plan.md` や Plans）は読まない。新しく書かない。末尾の引き継ぎも書かない。正は [issues-not-plans](../.cursor/rules/issues-not-plans.mdc)
+- **引き継ぎプロンプト**: 対象の GitHub issue に日付付きで残す。計画ファイルの末尾には書かない
+- **issue の見出し**: 終わった状態、範囲、やらないこと、未決、関連。未決が無ければその見出しは置かない。正は [issue-format](../.cursor/rules/issue-format.mdc)
 - **規約の正**: コードとブランチの切り方は [conventions.md](./conventions.md)（第7節）。PR の merge は [`.cursor/rules/pr-merge.mdc`](../.cursor/rules/pr-merge.mdc)。push 前のリファクタは [`.cursor/rules/pre-push-refactor.mdc`](../.cursor/rules/pre-push-refactor.mdc)
 - **生成物の確認**: 機能スプリントの実装直後。[ADR-012](./adr/012-ai-usage-and-generated-code.md)。Cursor ルールと CI には置かない
 
