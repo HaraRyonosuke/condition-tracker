@@ -5,7 +5,7 @@ alwaysApply: true
 
 # issue の形
 
-作業 issue のタイトルは、閉じたときに残る結果を1行で書く。本文は次の見出しだけ。未決が無ければ、その見出しは置かない。恒久の判断の置き場は [issues-not-plans](./issues-not-plans.mdc)。本文に署名は置かない。署名は [pr-conversation-reply](./pr-conversation-reply.mdc)。
+作業 issue のタイトルは、閉じたときに残る結果を1行で書く。本文は次の見出しだけ。未決が無ければ、その見出しは置かない。見出しのあと、本文の末尾に署名を置く。恒久の判断の置き場と、本文とコメントの分担は [issues-not-plans](./issues-not-plans.mdc)。署名の文は [pr-conversation-reply](./pr-conversation-reply.mdc)。
 
 ```markdown
 ## 終わった状態
