@@ -1,5 +1,5 @@
 ---
-description: GitHub に Cursor として書くときは、返信は引用し、コメントには署名を置く
+description: GitHub に Cursor として書くときは、返信は引用し、本文の末尾とコメントの先頭に署名を置く
 alwaysApply: true
 ---
 
@@ -11,11 +11,11 @@ alwaysApply: true
 
 誰かの質問やコメントへの返信では、その前に引用を置く。引用する相手がいない経過のコメントでは、引用を作らない。
 
-issue の本文にはこの文を置かない。見出しは [issue-format](./issue-format.mdc)。本文の更新は [issues-not-plans](./issues-not-plans.mdc)。Approve の代筆は [pr-merge](./pr-merge.mdc) が禁止する。
+issue の本文では、見出しのあと、末尾に同じ文を置く。本文の中での署名の位置は [issues-not-plans](./issues-not-plans.mdc)。見出しは [issue-format](./issue-format.mdc)。Approve の代筆は [pr-merge](./pr-merge.mdc) が禁止する。
 
 ```
 # ❌ BAD
-質問を引用せず、答えだけを書く / 署名のない issue コメントを書く / issue の本文に断り文を入れる
+質問を引用せず、答えだけを書く / 署名のない issue コメントを書く / 本文の末尾に署名が無い
 
 # ✅ GOOD
 > これは他の選択肢と同列のものなのでしょうか？
@@ -36,4 +36,4 @@ issue の本文にはこの文を置かない。見出しは [issue-format](./is
 残すことは書いて、この issue を閉じます。
 ```
 
-禁止: 引用のない返信。署名のないコメント。本文への署名。
+禁止: 引用のない返信。署名のないコメント。本文の末尾に署名が無いこと。
