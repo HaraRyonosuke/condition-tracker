@@ -1,5 +1,5 @@
 ---
-name: 作業
+name: 作業 issue
 about: 作業 issue
 ---
 
