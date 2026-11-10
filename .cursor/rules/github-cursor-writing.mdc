@@ -1,0 +1,66 @@
+---
+description: GitHub に Cursor として書く。返信は引用してから署名し、経過コメントは署名から始め、issue 本文の末尾に署名を置く。PR を出すときは本文の Closes で Development に作業 issue をつなぐ
+alwaysApply: true
+---
+
+# GitHub に Cursor として書く
+
+同一アカウントから出す。署名が無いと、誰の文か分からない。PR の本文に `Closes #<番号>` が無いと、Development が空のままになり、merge しても作業 issue が閉じない。リポジトリに、Development へ issue をつなぐ自動設定は無い。
+
+## 署名と引用
+
+エージェントが書く GitHub のコメントは、先頭に次の断りを置く。issue の経過コメントも、PR の返信も同じである。
+
+名義を分けられないため、同一アカウント（HaraRyonosuke）から Cursor として答えています。
+
+誰かの質問やコメントへの返信では、その前に引用を置く。引用する相手がいない経過のコメントでは、引用を作らない。
+
+issue の本文では、見出しのあと、末尾に同じ文を置く。本文の中での署名の位置は [issues-not-plans](./issues-not-plans.mdc)。見出しは [issue-format](./issue-format.mdc)。Approve の代筆は [pr-merge](./pr-merge.mdc) が禁止する。
+
+返信:
+
+```
+# ❌ BAD
+質問を引用せず、答えだけを書く。署名が無い。
+
+# ✅ GOOD
+引用が署名より前にある。署名がある。答えは署名のあとにある。
+```
+
+経過コメント:
+
+```
+# ❌ BAD
+引用する相手がいないのに、引用を作る。署名が無い。
+
+# ✅ GOOD
+引用が無い。署名から始まっている。
+```
+
+issue の本文:
+
+```
+# ❌ BAD
+見出しのあとに、末尾の署名が無い。
+
+# ✅ GOOD
+見出しのあと、末尾に署名がある。
+```
+
+禁止: 引用のない返信。署名のないコメント。本文の末尾に署名が無いこと。
+
+## Development
+
+PR を出すとき、その PR の本文に作業 issue の `Closes #<番号>` を書く。Development にはその issue が載る。merge するとその issue が閉じる。
+
+merge してよいかは [pr-merge](./pr-merge.mdc) のままである。
+
+```
+# ❌ BAD
+本文に Closes が無く、Development が空の PR を出す。
+
+# ✅ GOOD
+本文に作業 issue の Closes #<番号> がある。Development にその issue が載る。
+```
+
+禁止: Development が空のまま PR を出すこと。自動設定をリポジトリに足すこと。

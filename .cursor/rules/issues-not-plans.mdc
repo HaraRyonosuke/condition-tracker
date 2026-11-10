@@ -31,7 +31,7 @@ alwaysApply: true
 
 ## コメント
 
-署名と引用は [pr-conversation-reply](./pr-conversation-reply.mdc)。
+署名と引用は [github-cursor-writing](./github-cursor-writing.mdc)。
 
 5つの見出しのどれかを足す、消す、または別の文に差し替えるときは、先にコメントを書く。コメントには、日付、見出しの名前、前の文、後の文を書く。見出しを消したときは、消した文を書く。コメントのあとで、本文をいま有効な文に変える。署名の文は変えない。
 
