@@ -25,7 +25,7 @@ docs/
 │       └── product-test.md      # US-03 の項目。US-01 の項目を含む
 ├── releases/                     # リリースノート（機能・再デプロイごと）
 └── adr/                          # Architecture Decision Records
-    ├── 000-template.md           # ADRテンプレート
+    ├── 000-template.md           # ADRテンプレート。MADR 4.0.0 の項目を日本語で追記
     ├── 001-state-management.md   # 状態管理ライブラリの選定
     ├── 002-package-manager.md           # パッケージマネージャーの選定
     ├── 003-development-environment.md   # 開発環境の選定
