@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Clock } from '@lucide/vue'
+import clock from '@/icons/clock.svg?raw'
+import IconGlyph from '@/icons/IconGlyph.vue'
 import { computed, nextTick, ref, watch } from 'vue'
 import { clockTimeHm, formatMealDisplay12h, toMealHm } from '@/utils/datetime'
 
@@ -134,7 +135,7 @@ watch(
           {{ display12h.hour }}:{{ display12h.minute }}
         </span>
         <span class="col-start-3 row-start-2 justify-self-end text-ink" aria-hidden="true">
-          <Clock v-bind:size="20" v-bind:stroke-width="2" />
+          <IconGlyph v-bind:source="clock" v-bind:size="20" />
         </span>
       </button>
       <input
