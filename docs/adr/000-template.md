@@ -63,16 +63,3 @@ accepted
      関連する判断、見返す時期、合意の記録。判断そのものではない補足。 -->
 
 （補足）
-
-## 対応
-
-MADR 4.0.0 の定義名は英語のまま残す。
-
-- Context and Problem Statement はコンテキスト
-- Decision Drivers はコンテキストの制約
-- Considered Options は選択肢
-- Decision Outcome は決定と理由
-- Consequences は結果
-- Pros and Cons of the Options は、各選択肢の長所、どちらでもない点、短所
-- Confirmation は確認
-- More Information は補足
