@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Clock } from '@lucide/vue'
+import { Clock } from '@/icons'
 import { computed, nextTick, ref, watch } from 'vue'
 import { clockTimeHm, formatMealDisplay12h, toMealHm } from '@/utils/datetime'
 
@@ -78,6 +78,19 @@ function onCancelClick() {
   closeDialog()
 }
 
+function onBackdropClick(event: MouseEvent) {
+  const el = dialogEl.value
+  if (!el || event.target !== el) return
+  const rect = el.getBoundingClientRect()
+  const inside =
+    event.clientX >= rect.left &&
+    event.clientX <= rect.right &&
+    event.clientY >= rect.top &&
+    event.clientY <= rect.bottom
+  if (inside) return
+  onCancelClick()
+}
+
 function onDialogClose() {
   if (closeReason === 'cancel') {
     emit('cancel')
@@ -112,6 +125,7 @@ watch(
     ref="dialogEl"
     class="m-auto w-[min(100%,20rem)] rounded-lg border border-line bg-card p-4 text-ink backdrop:bg-ink/40"
     v-bind:inert="!open"
+    v-on:click="onBackdropClick"
     v-on:close="onDialogClose"
   >
     <p class="text-center text-base font-medium">{{ title }}</p>
