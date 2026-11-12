@@ -59,7 +59,7 @@ Node.js と npm は、同じメジャーのマイナーとパッチがあれば�
 
 - Node.js（Volta と `engines`。いまは 26.9.0）
 - npm（Volta。いまは 12.1.0）
-- dependencies: `@lucide/vue`、`pinia`、`vue`
+- dependencies: `pinia`、`vue`
 - devDependencies: `@eslint/js`、`@tailwindcss/vite`、`@tsconfig/node24`、`@types/node`、`@vitejs/plugin-vue`、`@vue/tsconfig`、`eslint`、`eslint-config-prettier`、`eslint-plugin-vue`、`globals`、`npm-run-all2`、`prettier`、`tailwindcss`、`typescript`、`typescript-eslint`、`vite`、`vite-plugin-vue-devtools`、`vitest`、`vue-tsc`
 
 パッケージの追加と削除は `package.json` に合わせ、その回の GitHub issue に書く。

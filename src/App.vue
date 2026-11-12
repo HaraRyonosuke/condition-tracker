@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { Moon, Sun } from '@lucide/vue'
 import { watch } from 'vue'
+import moon from '@/icons/moon.svg?raw'
+import sun from '@/icons/sun.svg?raw'
+import IconGlyph from '@/icons/IconGlyph.vue'
 import RecordInputView from '@/views/RecordInputView.vue'
 import { useColorScheme } from '@/composables/useColorScheme'
 
@@ -18,8 +20,8 @@ watch(isDark, () => sync(), { immediate: true })
         v-bind:aria-label="isDark ? 'ライトに切り替える' : 'ダークに切り替える'"
         v-on:click="toggle"
       >
-        <Sun v-if="isDark" v-bind:size="20" v-bind:stroke-width="2" aria-hidden="true" />
-        <Moon v-else v-bind:size="20" v-bind:stroke-width="2" aria-hidden="true" />
+        <IconGlyph v-if="isDark" v-bind:source="sun" v-bind:size="20" aria-hidden="true" />
+        <IconGlyph v-else v-bind:source="moon" v-bind:size="20" aria-hidden="true" />
       </button>
     </div>
     <RecordInputView />
