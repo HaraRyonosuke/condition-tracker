@@ -99,15 +99,15 @@ Vue 向けコンポーネントライブラリは採用しない。
 | 選択文字   | `#FBFAF3` | `#14140C` |
 | エラー     | `#B42318` | `#F97066` |
 
-切替は画面上部のボタンとする。アイコンは Lucide の `Sun` と `Moon`（ADR-016）。既定は OS / ブラウザの `prefers-color-scheme`。タブ内でライト/ダークに上書きできる。再読み込みとタブを閉じると上書きは消える。localStorage は置かない。テーマ状態は記録の draft に置かない。
+切替は画面上部のボタンとする。アイコンは Lucide の [`sun`](../../src/icons/sun.svg) と [`moon`](../../src/icons/moon.svg)（ADR-016）。既定は OS / ブラウザの `prefers-color-scheme`。タブ内でライト/ダークに上書きできる。再読み込みとタブを閉じると上書きは消える。localStorage は置かない。テーマ状態は記録の draft に置かない。
 
-食事モーダルの入力方法（画面はアプリの 12 時間表示、未設定は開いた時刻、コピーは 24 時間 `HH:MM`、時計は Lucide の `clock`）は見た目の色とは別で、[design.md](../design.md) 第7節を正とする。
+食事モーダルの入力方法（画面はアプリの 12 時間表示、未設定は開いた時刻、コピーは 24 時間 `HH:MM`、時計は Lucide の [`clock`](../../src/icons/clock.svg)）は見た目の色とは別で、[design.md](../design.md) 第7節を正とする。
 
 ### 結果（追記）
 
 - スタイリング手段は Tailwind 単体のまま（一周目の決定）
 - 色は D3 オリーブ茶。stone の暗側延長は採らない
-- 切替は画面上部のボタン（Lucide の `Sun` / `Moon`）。OS 既定、タブ内上書き、localStorage なし
+- 切替は画面上部のボタン（Lucide の [`sun`](../../src/icons/sun.svg) / [`moon`](../../src/icons/moon.svg)）。OS 既定、タブ内上書き、localStorage なし
 - テーマ選好の localStorage は、記録の保存の再検討と同時に見る
 - テーマ状態を記録の draft に置かない、`v-html` を使わない
-- アイコンセットは Tailwind の対象外。Lucide（ADR-016）
+- アイコンセットは Tailwind の対象外。Lucide（ADR-016）。使っているグリフの正は `src/icons/` の SVG

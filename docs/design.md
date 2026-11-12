@@ -110,7 +110,7 @@ const checkItemDefinitions = [
 
 実装時はこの定義をソース上の定数として置く。英語名は今は持たない。必要になったら定義表に足す。
 
-入力の4択は 0 から 3 である。0はなし、1は少し、2はかなり、3はとても当てはまる。画面のボタンは左から Lucide の smile、meh、frown、annoyed で、数字と日本語の説明は出さない。ボタンの名前には、その説明を残す。絵文字は使わない。
+入力の4択は 0 から 3 である。0はなし、1は少し、2はかなり、3はとても当てはまる。画面のボタンは左から Lucide の [`smile`](../src/icons/smile.svg)、[`meh`](../src/icons/meh.svg)、[`frown`](../src/icons/frown.svg)、[`annoyed`](../src/icons/annoyed.svg) で、数字と日本語の説明は出さない。ボタンの名前には、その説明を残す。絵文字は使わない。
 
 ```typescript
 const scaleLabels = [
@@ -128,7 +128,7 @@ const scaleLabels = [
 
 US-01 の入力UI（現行ツールから採用するもの）:
 
-- 各項目は 4 列のボタン。絵は左から smile、meh、frown、annoyed。数値と「なし／少し／かなり／とても」は出さない
+- 各項目は 4 列のボタン。絵は左から [`smile`](../src/icons/smile.svg)、[`meh`](../src/icons/meh.svg)、[`frown`](../src/icons/frown.svg)、[`annoyed`](../src/icons/annoyed.svg)。数値と「なし／少し／かなり／とても」は出さない
 - 画面下にコピー文面のライブプレビューを置く。初期は全項目 `—/3`・合計 `—/21`。選択のたびに更新する
 - テーマは ADR-007。色は D3 オリーブ茶。切替は画面上部のボタン（OS 既定、タブ内上書き、localStorage なし）。`useRecordStore` には置かない
 - 出力はクリップボードへのコピーである（ADR-006）。アプリ内には履歴を残さない。プレビューはテキスト補間であり、`v-html` は使わない
@@ -145,9 +145,9 @@ US-01 の入力UI（現行ツールから採用するもの）:
 - `bathing` / `outdoor`: `boolean | null`。未回答はコピーで `—`
 - `meals`: 朝 / 昼 / 晩 / 間食それぞれの `HH:MM | null`。未設定は `—`。回数では持たない
 
-画面のボタンは、お風呂・シャワーが Lucide の bath、shower-head、annoyed である。bath と shower-head はどちらも `true`（コピーは「入れた」）。annoyed は `false`（コピーは「入れなかった」）。外出は door-open が `true`（できた）、house が `false`（できなかった）。食事のボタンは「朝: —」のように短い名前と、時刻または `—` を1行にする。コピーの食事名は「朝ごはん」のまま。
+画面のボタンは、お風呂・シャワーが Lucide の [`bath`](../src/icons/bath.svg)、[`shower-head`](../src/icons/shower-head.svg)、[`annoyed`](../src/icons/annoyed.svg) である。bath と shower-head はどちらも `true`（コピーは「入れた」）。annoyed は `false`（コピーは「入れなかった」）。外出は [`door-open`](../src/icons/door-open.svg) が `true`（できた）、[`house`](../src/icons/house.svg) が `false`（できなかった）。食事のボタンは「朝: —」のように短い名前と、時刻または `—` を1行にする。コピーの食事名は「朝ごはん」のまま。
 
-開始・終了の時間幅で持つ形や、「設定で bool と時間入力を切り替える」汎用化は将来タスクとする。画面幅は Tailwind の既定の画面幅クラスで分ける（ADR-007）。小さい幅は1列、`md`（48rem）以上は2列である。ヘッダーは題と説明。その下の左は気分チェック、お風呂・シャワー、外出、食事で、上詰めである。続きがあるあいだ、左の下端に Lucide の `chevrons-down` を出す。右はコピー文面で、中身がはみ出すときだけその枠の中でスクロールする。独自の幅は足さない。別のレイアウト用ライブラリは足さない。幅 390 は1列である。
+開始・終了の時間幅で持つ形や、「設定で bool と時間入力を切り替える」汎用化は将来タスクとする。画面幅は Tailwind の既定の画面幅クラスで分ける（ADR-007）。小さい幅は1列、`md`（48rem）以上は2列である。ヘッダーは題と説明。その下の左は気分チェック、お風呂・シャワー、外出、食事で、上詰めである。続きがあるあいだ、左の下端に Lucide の [`chevrons-down`](../src/icons/chevrons-down.svg) を出す。右はコピー文面で、中身がはみ出すときだけその枠の中でスクロールする。独自の幅は足さない。別のレイアウト用ライブラリは足さない。幅 390 は1列である。
 US-01 では `behavior` も `memo` も入力しない。US-03 で `behavior` を入力する。出力はコピーのみ（ADR-006）。localStorage には記録もテーマ選好も置かない。
 
 1件の識別子は日付ではない。1日に複数件あってよい。暦日でのグループ化が必要な画面（一覧）は、保存の正をアプリ側に置いてから、`recordedAt` を `timeZone` で解釈した日付でまとめる。画面上の日時表示は `YYYY-MM-DD HH:mm:ss` にタイムゾーン名を添える。コピー文面の日時は現行ツールに合わせ、分までと曜日を出し、タイムゾーン名を添える（秒は `recordedAt` の ISO にだけ残す）。タイムゾーンはブラウザ／OS から取る。VPN の出口 IP からは取らない。
@@ -187,14 +187,14 @@ src/
 
 ### コンポーネントとストアの責務（US-01 / US-03）
 
-| 単位              | 責務                                                                                                                                 |
-| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| `RecordInputView` | 画面全体。スコアと行動。コピー文面のライブプレビュー、注意文、常時有効のコピーと空にするボタン                                       |
-| `ScoreForm`       | 7項目を定義表の順に並べる                                                                                                            |
-| `ScoreItemInput`  | 1項目の質問文と 0〜3 の4ボタン                                                                                                       |
-| `BehaviorForm`    | 入浴・外出の 2 択、食事 4 スロット。未設定の食事を開くと `MealTimeDialog`                                                            |
-| `MealTimeDialog`  | 第7節「食事時刻の入力」。画面はアプリの 12 時間表示。時計は Lucide の `clock`（ADR-016）。決定だけ draft に書く                      |
-| `useRecordStore`  | 入力中の draft（スコアは `number \| null`、行動は上の型）。全問後にだけ数値合計。プレビューと `copyFormattedText` / `clearClipboard` |
+| 単位              | 責務                                                                                                                                      |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `RecordInputView` | 画面全体。スコアと行動。コピー文面のライブプレビュー、注意文、常時有効のコピーと空にするボタン                                            |
+| `ScoreForm`       | 7項目を定義表の順に並べる                                                                                                                 |
+| `ScoreItemInput`  | 1項目の質問文と 0〜3 の4ボタン                                                                                                            |
+| `BehaviorForm`    | 入浴・外出の 2 択、食事 4 スロット。未設定の食事を開くと `MealTimeDialog`                                                                 |
+| `MealTimeDialog`  | 第7節「食事時刻の入力」。画面はアプリの 12 時間表示。時計は Lucide の [`clock`](../src/icons/clock.svg)（ADR-016）。決定だけ draft に書く |
+| `useRecordStore`  | 入力中の draft（スコアは `number \| null`、行動は上の型）。全問後にだけ数値合計。プレビューと `copyFormattedText` / `clearClipboard`      |
 
 コピーした瞬間に `id`（UUID）、`recordedAt`、`timeZone` を付ける。日付の入力欄は置かない。
 
@@ -228,7 +228,7 @@ graph LR
 | AI開発支援             | Cursor                  | ADR-012（道具の中心は ADR-005 の決定を維持）                                                                                |
 | データ保存・持ち出し   | クリップボードへコピー  | ADR-006                                                                                                                     |
 | スタイリング           | Tailwind CSS            | ADR-007                                                                                                                     |
-| アイコン               | Lucide                  | ADR-016。個々のグリフは使う画面で選ぶ                                                                                       |
+| アイコン               | Lucide                  | ADR-016。個々のグリフは使う画面で選ぶ。正は `src/icons/` の SVG                                                             |
 | コード規約             | ESLint + Prettier       | ADR-008                                                                                                                     |
 | 単体テスト             | Vitest                  | ADR-009                                                                                                                     |
 | CI                     | GitHub Actions          | ADR-010。PR で type-check / lint / format / 単体を回す                                                                      |
@@ -268,7 +268,7 @@ graph LR
 - 入浴・外出（`boolean | null`）と、朝昼晩・間食の時刻（`HH:MM | null`）
 - 同じライブプレビューへ `[行動]` `[食事]` を足す。プレビューはテキスト補間。`v-html` は使わない
 - 食事はモーダル。入力の正は下の「食事時刻の入力」
-- ダーク（ADR-007）。色は D3 オリーブ茶。切替は画面上部の Lucide ボタン。`html` への反映は composable。記録ストアには置かない
+- ダーク（ADR-007）。色は D3 オリーブ茶。切替は画面上部の [`sun`](../src/icons/sun.svg) / [`moon`](../src/icons/moon.svg)。`html` への反映は composable。記録ストアには置かない
 
 ### 食事時刻の入力
 
@@ -282,7 +282,7 @@ graph LR
 - ピッカーはネイティブの `input type="time"` を隠し、欄全体のタップで `showPicker()` を開く。午前／午後・時・分の自前セレクトにはしない
 - 12／24 のアプリ内切替は将来タスク。設定画面も localStorage も今は置かない
 - ブラウザの 12 時間の窓と 24 時間の窓は、同じ幅の基準線ではそろえない。画面の 12／24 切替とは別の将来タスクである
-- 時計の絵は Lucide の `clock`（ADR-016）。ブラウザ標準のインジケータは出さない。欄全体がタップ範囲
+- 時計の絵は Lucide の `clock`（ADR-016）。正は [`src/icons/clock.svg`](../src/icons/clock.svg)。画面はそこから読む。ブラウザ標準のインジケータは出さない。欄全体がタップ範囲
 - 分は 1 分刻み（ネイティブの既定）。5 分グリッドやタイムラインは持たない
 
 ### コピー文面（US-03）
