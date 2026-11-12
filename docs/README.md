@@ -25,24 +25,25 @@ docs/
 │       └── product-test.md      # US-03 の項目。US-01 の項目を含む
 ├── releases/                     # リリースノート（機能・再デプロイごと）
 └── adr/                          # Architecture Decision Records
-    ├── 000-template.md           # ADRテンプレート
+    ├── 000-template.md           # ADRテンプレート。MADR 4.0.0 の項目を日本語で追記
     ├── 001-state-management.md   # 状態管理ライブラリの選定
     ├── 002-package-manager.md           # パッケージマネージャーの選定
     ├── 003-development-environment.md   # 開発環境の選定
     ├── 004-node-version-management.md   # Node.js のバージョン管理
-    ├── 005-ai-coding-assistant.md       # AI開発支援ツールの選定（ADR-012 に置換）
     ├── 006-data-persistence.md          # データの保存と持ち出し
     ├── 007-styling.md                   # スタイリング手段の選定
     ├── 008-lint-format.md               # コード規約（Lint とフォーマット）
     ├── 009-testing.md                   # 単体テストと総合テスト
     ├── 010-ci.md                        # PR での自動チェック（CI）
-    ├── 011-hosting.md                   # 本番の公開先（GitHub Pages。ADR-013 により superseded）
     ├── 012-ai-usage-and-generated-code.md # AIの使い方と生成コードの扱い
     ├── 013-vercel-static-hosting.md     # 本番の公開先（Vercel へ静的ファイルを置く）
-    ├── 014-ui-confirmation.md           # 画面確認の場（proposed）
+    ├── 014-ui-confirmation.md           # 画面確認の場（Cursor Canvas）
     ├── 015-refactor-order.md            # push 前に仕様を当てる順
     ├── 016-icon-set.md                  # 画面アイコンのセット（Lucide）
-    └── 017-node-npm-minor-updates.md    # Node.js と npm のマイナー以降の更新
+    ├── 017-node-npm-minor-updates.md    # Node.js と npm のマイナー以降の更新
+    └── archives/                        # 現行ではない ADR
+        ├── 005-ai-coding-assistant.md   # AI開発支援ツールの選定（ADR-012 に置換）
+        └── 011-hosting.md               # 本番の公開先（GitHub Pages。ADR-013 により superseded）
 ```
 
 ## スプリントの進め方

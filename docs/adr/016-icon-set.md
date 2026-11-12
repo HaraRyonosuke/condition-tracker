@@ -69,7 +69,7 @@ Lucide は線アイコンのまま数が足り、Tabler より製品のダッシ
 
 食事時刻の時計は Lucide の [`clock`](https://lucide.dev/icons/clock) とする（[design.md](../design.md) 第7節）。
 ほかの画面のグリフは、使うときに選ぶ。セットの正は Lucide である。
-使っているグリフの正は `src/icons/` の SVG である。画面と文書は、そのファイルを読む。`icons` 一式は読まない。いま置いているのは [`smile`](../../src/icons/smile.svg)、[`meh`](../../src/icons/meh.svg)、[`frown`](../../src/icons/frown.svg)、[`annoyed`](../../src/icons/annoyed.svg)、[`chevrons-down`](../../src/icons/chevrons-down.svg)、[`bath`](../../src/icons/bath.svg)、[`shower-head`](../../src/icons/shower-head.svg)、[`door-open`](../../src/icons/door-open.svg)、[`house`](../../src/icons/house.svg)、[`clock`](../../src/icons/clock.svg)、[`sun`](../../src/icons/sun.svg)、[`moon`](../../src/icons/moon.svg) である。
+使っているグリフの正は `src/icons/` の SVG である（[ADR-018](018-icon-read.md)）。画面と文書は、そのファイルを読む。`icons` 一式は読まない。いま置いているのは [`smile`](../../src/icons/smile.svg)、[`meh`](../../src/icons/meh.svg)、[`frown`](../../src/icons/frown.svg)、[`annoyed`](../../src/icons/annoyed.svg)、[`chevrons-down`](../../src/icons/chevrons-down.svg)、[`bath`](../../src/icons/bath.svg)、[`shower-head`](../../src/icons/shower-head.svg)、[`door-open`](../../src/icons/door-open.svg)、[`house`](../../src/icons/house.svg)、[`clock`](../../src/icons/clock.svg)、[`sun`](../../src/icons/sun.svg)、[`moon`](../../src/icons/moon.svg) である。
 
 ## 結果
 

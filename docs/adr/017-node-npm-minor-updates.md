@@ -15,7 +15,7 @@ ADR-004 は、Volta で Node.js 26.9.0 と npm 12.1.0 を `package.json` に固�
 制約は以下の通り。
 
 - 版の固定手段は Volta のままである（ADR-004）。パッケージマネージャーは npm のままである（ADR-002）
-- いまのピンは Node.js 26.9.0、npm 12.1.0 である。`engines`、CI（ADR-010）、公開のビルド（ADR-011、ADR-013）もこの Node を指している
+- いまのピンは Node.js 26.9.0、npm 12.1.0 である。`engines`、CI（ADR-010）、公開のビルド（ADR-013）もこの Node を指している。旧決定の ADR-011 は archives にある
 - Node.js の奇数メジャーは LTS にならない。ADR-004 は偶数メジャーの 26 を選んでいる
 - ピンを上げるときは、手元・`package.json`・CI が別々の版を指さないようにする
 - スプリントの区切りは [docs/README.md](../README.md) の機能スプリント、リリーススプリント、サイクル末尾である

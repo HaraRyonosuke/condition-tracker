@@ -6,7 +6,7 @@ accepted
 
 ## コンテキスト
 
-ADR-011 は GitHub Pages を本番にした。プロジェクトサイトは
+ADR-011（archives）は GitHub Pages を本番にした。プロジェクトサイトは
 `https://hararyonosuke.github.io/condition-tracker/` であり、同じユーザーの
 Pages はパスが違ってもオリジンを共有する。いま他の Pages は無く、アプリも保存しない。
 US-02 の保存や US-06 のログインを同じ URL に足す前に、オリジンを分けたい。
@@ -89,7 +89,7 @@ Permissions-Policy も一段目では置かない。
 - トークンと org / project の ID は GitHub Secrets（`VERCEL_TOKEN`、`VERCEL_ORG_ID`、`VERCEL_PROJECT_ID`）に置く。リポジトリ本文には書かない
 - GitHub Pages へのデプロイは止める。旧 URL は本番の正ではない
 - ホスト側ビルド（選択肢C）は、Vercel が Node 26 の本番ビルドを扱えるときに検討する。今はしない
-- ADR-011 は本 ADR により superseded
+- ADR-011（archives）は本 ADR により superseded
 
 ## 導入（手元で一度だけ）
 
