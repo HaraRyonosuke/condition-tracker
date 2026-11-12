@@ -223,7 +223,7 @@ graph LR
 | パッケージマネージャー | npm                     | ADR-002                                                                                                                     |
 | 開発環境               | 自前PCのローカル        | ADR-003                                                                                                                     |
 | Node.js                | 26.9.0（Volta）         | ADR-004                                                                                                                     |
-| AI開発支援             | Cursor                  | ADR-012（道具の中心は ADR-005 の決定を維持）                                                                                |
+| AI開発支援             | Cursor                  | ADR-012（道具の中心は archives の ADR-005 の決定を維持）                                                                    |
 | データ保存・持ち出し   | クリップボードへコピー  | ADR-006                                                                                                                     |
 | スタイリング           | Tailwind CSS            | ADR-007                                                                                                                     |
 | アイコン               | Lucide                  | ADR-016。個々のグリフは使う画面で選ぶ                                                                                       |
