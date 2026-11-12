@@ -1,0 +1,38 @@
+---
+description: Project は GitHub の一般的な使い方で動かし、計画日数は着手時に入れる
+alwaysApply: true
+---
+
+# Project の欄
+
+使う Project は condition tracker project だけである。https://github.com/users/HaraRyonosuke/projects/4
+
+仮の使い方は、GitHub の一般的な Project の使い方である。固有の意味は [#46](https://github.com/HaraRyonosuke/condition-tracker/issues/46) が、#42、#44、#43、#45、#40、#41 のあとのプロジェクト整理で上書きする。
+
+Status はボードの列である。
+
+- Backlog: まだ着手しない
+- Ready: 内容が決まっていて、次に取れる
+- In progress: 着手している。この日を Start date にする。Planned days に計画の日数を入れる
+- In review: PR が開いている
+- Done: issue を閉じた
+
+Priority は先にやる順である。P0 がいちばん先、P2 があとでよい。
+
+Size は作業の大きさである。XS がいちばん小さく、XL がいちばん大きい。時間への換算は書かない。
+
+Planned days は、着手時に置く計画の日数である。Elapsed days は、閉じたあとの経過日数である。日本時間の日付で、閉じた日マイナス Start date を入れる。差が 0 のときは 1 にする。Start date が空のときは Elapsed days を書かない。どちらも、働いた時間ではない。
+
+Estimate は複雑さの数値である。Target date は終える目標日である。どちらも #46 まで空にする。
+
+いま Project に載っている作業には、Priority、Size、Start date を入れる。手をつけたものから、上の仮の意味で書く。一覧を遡っては埋めない。
+
+```
+# ❌ BAD
+plan や actual とだけ名付ける / XS を時間に換算する / Start date が空なのに経過日数を書く
+
+# ✅ GOOD
+着手で In progress、Start date、Planned days。閉じたら、同じ日は 1 日、翌日以降はその差
+```
+
+禁止: Estimate と Target date を仮で書くこと。Size を時間に換算すること。

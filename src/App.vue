@@ -10,7 +10,7 @@ watch(isDark, () => sync(), { immediate: true })
 </script>
 
 <template>
-  <div class="min-h-screen bg-page text-ink antialiased md:h-dvh md:overflow-hidden">
+  <div class="min-h-screen bg-page text-ink antialiased md:h-dvh md:min-h-dvh md:overflow-hidden">
     <div class="relative mx-auto flex w-full max-w-lg flex-col md:h-full md:max-w-5xl md:min-h-0">
       <button
         type="button"

@@ -21,7 +21,7 @@ alwaysApply: true
 
 番号は [docs/releases/README.md](../../docs/releases/README.md) の順番にある。`着手中` と書いた行の `US-xx` が、いまの US である。`着手中` が無いとき、または2行あるときは、US ラベルを付けずに止まる。
 
-- その作業がいまの US に属するときは、その `US-xx` を付ける。ラベルが無ければ作る。説明は [docs/requirements.md](../../docs/requirements.md) のその US の文。色は、既存の US ラベルに使われていない色を1つ付ける。requirements に無い番号は作らない。
+- その作業がいまの US に属するときは、その `US-xx` を付ける。ラベルが無ければ作る。説明は、その US の issue にある文。色は、既存の US ラベルに使われていない色を1つ付ける。
 - 本文が子 issue の一覧を持つときは、`親` を足す。
 - 触るものが文書だけなら `docs`、開発環境だけなら `chore`、依存と実行環境だけなら `build`。画面や挙動の実装なら、この3つは付けない。
 

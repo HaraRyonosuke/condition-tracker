@@ -79,7 +79,7 @@ async function onClearClipboard() {
         </button>
       </div>
 
-      <div class="mt-10 md:mt-0 md:min-h-0">
+      <div class="mt-10 md:mt-0 md:h-full md:min-h-0">
         <section
           class="rounded-lg border border-line bg-card p-4 md:flex md:h-full md:min-h-0 md:flex-col"
         >
