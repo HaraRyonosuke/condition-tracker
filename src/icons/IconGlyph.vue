@@ -1,10 +1,17 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
 
-const props = defineProps<{
-  source: string
-  size: number
-}>()
+const props = withDefaults(
+  defineProps<{
+    source: string
+    size?: number
+    strokeWidth?: number
+  }>(),
+  {
+    size: 24,
+    strokeWidth: 2,
+  },
+)
 
 const host = ref<HTMLElement | null>(null)
 
@@ -15,11 +22,12 @@ function paint(): void {
   const svg = doc.documentElement
   svg.setAttribute('width', String(props.size))
   svg.setAttribute('height', String(props.size))
+  svg.setAttribute('stroke-width', String(props.strokeWidth))
   el.replaceChildren(document.importNode(svg, true))
 }
 
 onMounted(paint)
-watch(() => [props.source, props.size] as const, paint)
+watch(() => [props.source, props.size, props.strokeWidth] as const, paint)
 </script>
 
 <template>

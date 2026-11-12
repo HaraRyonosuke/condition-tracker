@@ -69,7 +69,7 @@ Lucide は線アイコンのまま数が足り、Tabler より製品のダッシ
 
 食事時刻の時計は Lucide の [`clock`](https://lucide.dev/icons/clock) とする（[design.md](../design.md) 第7節）。
 ほかの画面のグリフは、使うときに選ぶ。セットの正は Lucide である。
-使っているグリフの正は `src/icons/` の SVG である（[ADR-018](018-icon-read.md)）。画面と文書は、そのファイルを読む。いま置いているのは [`clock`](../../src/icons/clock.svg)、[`sun`](../../src/icons/sun.svg)、[`moon`](../../src/icons/moon.svg) である。
+使っているグリフの正は `src/icons/` の SVG である（[ADR-018](018-icon-read.md)）。画面と文書は、そのファイルを読む。`icons` 一式は読まない。いま置いているのは [`smile`](../../src/icons/smile.svg)、[`meh`](../../src/icons/meh.svg)、[`frown`](../../src/icons/frown.svg)、[`annoyed`](../../src/icons/annoyed.svg)、[`chevrons-down`](../../src/icons/chevrons-down.svg)、[`bath`](../../src/icons/bath.svg)、[`shower-head`](../../src/icons/shower-head.svg)、[`door-open`](../../src/icons/door-open.svg)、[`house`](../../src/icons/house.svg)、[`clock`](../../src/icons/clock.svg)、[`sun`](../../src/icons/sun.svg)、[`moon`](../../src/icons/moon.svg) である。
 
 ## 結果
 
@@ -77,5 +77,5 @@ Lucide は線アイコンのまま数が足り、Tabler より製品のダッシ
 - 絵文字は使わない
 - 色は `currentColor`。塗りアイコンを既定にしない
 - daisyUI やコンポーネント庫のアイコンは使わない（ADR-007）
-- 食事時刻の時計は Lucide の `clock`（[design.md](../design.md) 第7節）。正は [`src/icons/clock.svg`](../../src/icons/clock.svg)。画面はそこから読む。いま置いているのは `clock`、`sun`、`moon`
+- 食事時刻の時計は Lucide の `clock`（[design.md](../design.md) 第7節）。正は [`src/icons/clock.svg`](../../src/icons/clock.svg)。画面はそこから読む。`icons` 一式は読まない。いま置いているのは `smile`、`meh`、`frown`、`annoyed`、`chevrons-down`、`bath`、`shower-head`、`door-open`、`house`、`clock`、`sun`、`moon`
 - 公式サイトは [lucide.dev](https://lucide.dev)
