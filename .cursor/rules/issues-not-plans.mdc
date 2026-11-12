@@ -38,7 +38,6 @@ alwaysApply: true
 見出しの文が変わらないときは、コメントだけを書く。本文は変えない。
 
 - 握ったこと、採ったこと
-- コミット、push、PR、merge
 - Project の Status、Start date、Planned days、Actual Days
 - まだコミットしていない、などの途中
 - 引き継ぎ
