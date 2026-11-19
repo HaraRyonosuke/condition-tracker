@@ -41,6 +41,8 @@ docs/
     ├── 015-refactor-order.md            # push 前に仕様を当てる順
     ├── 016-icon-set.md                  # 画面アイコンのセット（Lucide）
     ├── 017-node-npm-minor-updates.md    # Node.js と npm のマイナー以降の更新
+    ├── 018-icon-read.md                 # 使っているアイコンの読み方
+    ├── 019-adr-dialogue.md              # ADR の下書きを対話で作る（proposed）
     └── archives/                        # 現行ではない ADR
         ├── 005-ai-coding-assistant.md   # AI開発支援ツールの選定（ADR-012 に置換）
         └── 011-hosting.md               # 本番の公開先（GitHub Pages。ADR-013 により superseded）
